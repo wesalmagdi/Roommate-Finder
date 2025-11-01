@@ -66,3 +66,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.navbar {
+  background-color: #242c4e !important;
+  padding: 1rem;
+}
+
+.nav-link {
+  color: white !important;
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
