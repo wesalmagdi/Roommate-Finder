@@ -18,10 +18,7 @@ function App() {
       </BrowserRouter>
 
 
-      {/* Add dummy scrollable content */}
-      <div style={{ height: "2000px", backgroundColor: "#f5f5f5", paddingTop: "100px" }}>
-        <h1 style={{ textAlign: "center" }}>Scroll down to test the navbar!</h1>
-      </div>
+     
       
 
 
