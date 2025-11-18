@@ -1,0 +1,26 @@
+/* Basic SearchBar styles - you can expand or move styles here instead of inline */
+.searchbar-select {
+	min-width: 200px;
+	height: 36px;
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 1px solid #000000;
+}
+
+.searchbar-button {
+	height: 40px;
+	padding: 0 14px;
+	border-radius: 8px;
+	border: none;
+	background: #000000;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+
+@media (max-width: 480px) {
+	.searchbar-select {
+		min-width: 140px;
+	}
+}
+
+
