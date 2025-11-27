@@ -1,9 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const authRoutes = require('./routes/auth.js'); // auth routes
-const { logger } = require('./middlewares/logger.js'); // logger middleware
+const authRoutes = require('./routes/auth'); // auth routes
+const { logger } = require('./middlewares/logger'); // logger middleware
 
 app.use(express.json());
 app.use(logger);
