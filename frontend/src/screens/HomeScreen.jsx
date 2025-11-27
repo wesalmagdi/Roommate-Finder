@@ -4,16 +4,17 @@ import './HomeScreen.css';
 import SearchBar from "../components/SearchBar";
 
 function HomeScreen() {
-    return (
-        
-        <div className="home-screen">
-            
+  return (
+    <div className="home-screen">
 
-            
-            <SearchBar />
-        </div>
-    );
+      <div className="search-wrapper">
+        <SearchBar />
+      </div>
+
+      
+
+    </div>
+  );
 }
 
 export default HomeScreen;
-       
