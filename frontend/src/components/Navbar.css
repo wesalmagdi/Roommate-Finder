@@ -20,7 +20,7 @@
 
 /* Optional: make sticky visually consistent */
 body {
-  padding-top: 70px; /* prevent content from hiding under fixed navbar */
+  padding-top: 50px; /* prevent content from hiding under fixed navbar */
 }
 
 .navbar.navbar-scrolled {
