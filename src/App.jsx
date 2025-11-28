@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import AboutUs from './screens/AboutUs';
+
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 function App() {
   return (
@@ -13,8 +15,11 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/about" element={<AboutUs />} />
+           
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />
+
         </Routes>
       </BrowserRouter>
 
