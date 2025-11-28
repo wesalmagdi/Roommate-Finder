@@ -4,8 +4,6 @@
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-
-
 /* When scrolled */
 .navbar-scrolled {
   background-color: #f1ebeb;
@@ -13,9 +11,9 @@
 }
 
 .navbar-scrolled .nav-link,
-.navbar-scrolled .navbar-brand ,
-.navbar-scrolled .nav-link:hover{
-  color: #242c4e  ;
+.navbar-scrolled .navbar-brand,
+.navbar-scrolled .nav-link:hover {
+  color: #242c4e;
 }
 
 /* Optional: make sticky visually consistent */
@@ -39,6 +37,51 @@ body {
   transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* Navbar Container - Three-column layout */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Left Section - Brand */
+.nav-left {
+  flex: 0 0 auto;
+}
+
+/* Center Section - About Us */
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-center .navbar-nav {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Right Section - Auth Links */
+.nav-right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-right .navbar-nav {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Navigation Links */
 .navbar-default .nav-link {
   color: white !important;
   margin-right: 1rem;
@@ -52,16 +95,22 @@ body {
   font-weight: bold;
 }
 
-.navbar-scrolled .nav-link:hover{
-    text-decoration: underline;
-    font-weight: bold;
+.navbar-scrolled .nav-link:hover {
+  text-decoration: underline;
+  font-weight: bold;
 }
 
+/* Navbar Brand */
 .navbar-default .navbar-brand {
   color: rgb(255, 255, 255) !important;
   font-weight: bold;
   font-size: 1.5rem;
   text-decoration: none;
   transition: color 0.4s ease;
+}
+
+/* Mobile Toggler */
+.navbar-toggler {
+  display: none;
 }
 
