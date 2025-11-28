@@ -140,3 +140,21 @@ exports.deletePost = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.searchPosts = async (req, res) => {
+    try {
+        const { location, budget, gender } = req.query;
+
+        let filter = {};
+        if (location) filter.location = location;
+        if (budget) filter.rent = { $lte: budget }; // max budget
+        if (gender) filter.gender = gender;
+
+        const posts = await Post.find(filter);
+
+        res.json(posts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
