@@ -1,5 +1,5 @@
 import React from "react";
-import './registerScreen.css'; 
+import './RegisterScreen.css'; 
 import { Link } from "react-router-dom";
 
 function RegisterScreen() {
