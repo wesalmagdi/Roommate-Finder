@@ -37,6 +37,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build frontend
+        run: npm run build
+
+      - name: Install serve for static hosting
+        run: npm install -g serve
+
+      - name: Start static server
+        run: serve -s dist -l 4173 &
+
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:4173
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
