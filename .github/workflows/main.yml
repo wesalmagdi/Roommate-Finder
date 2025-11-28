@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -43,8 +43,8 @@ jobs:
       - name: Install serve for static hosting
         run: npm install -g serve
 
-      - name: Start static server in background
-        run: nohup serve -s dist -l 4173 &
+      - name: Start static server
+        run: serve -s dist -l 4173 &
 
       - name: Wait for server to be ready
         run: npx wait-on http://localhost:4173
@@ -53,7 +53,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test --reporter=list --timeout=30000
+        run: npx playwright test --reporter=list
 
       - name: Upload Playwright report
         if: always()
