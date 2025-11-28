@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test.describe('App routing', () => {
   test('App renders Navbar and routes', async ({ page }) => {
