@@ -8,7 +8,7 @@
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+background: linear-gradient(135deg, #242c4e 0%, #8693c0 100%);
   padding: 120px 24px 80px;
   text-align: center;
   color: white;
@@ -91,7 +91,7 @@
   width: 80px;
   height: 80px;
   margin: 0 auto 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00020a 0%, #764ba2 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -154,7 +154,7 @@
 /* CTA Section */
 .cta-section {
   padding: 100px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #242c4e 0%, #8693c0 100%);
   text-align: center;
   color: white;
 }
