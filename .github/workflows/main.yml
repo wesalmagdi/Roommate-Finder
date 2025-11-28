@@ -35,7 +35,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build frontend
         run: npm run build
@@ -43,8 +43,8 @@ jobs:
       - name: Install serve for static hosting
         run: npm install -g serve
 
-      - name: Start static server
-        run: serve -s dist -l 4173 &
+      - name: Start static server in background
+        run: nohup serve -s dist -l 4173 &
 
       - name: Wait for server to be ready
         run: npx wait-on http://localhost:4173
@@ -53,7 +53,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test --reporter=list
+        run: npx playwright test --reporter=list --timeout=30000
 
       - name: Upload Playwright report
         if: always()
