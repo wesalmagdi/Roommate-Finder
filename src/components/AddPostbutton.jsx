@@ -1,6 +1,6 @@
 
 import React from "react";
-import "./AddPostButton.css";
+import "./AddPostbutton.css";
 
 export default function AddPostButton({ onOpen }) {
   return (
