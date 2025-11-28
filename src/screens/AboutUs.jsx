@@ -1,6 +1,6 @@
 "use client"
 
-import './aboutus.css';
+import './AboutUs.css';
 import { Link } from 'react-router-dom';
 import { Users, Home, Shield, Search } from 'lucide-react';
 
