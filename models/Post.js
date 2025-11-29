@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
+// Embedded schema for amenities
 const amenitiesSchema = new mongoose.Schema(
   {
     wifi: { type: Boolean, default: false },
@@ -13,13 +14,14 @@ const amenitiesSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// Main post schema
 const postSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
 
     location: { type: String, required: true },
-    city: { type: String, required: true },    
+    city: { type: String, required: true },
     address: { type: String, required: true },
 
     price: { type: Number, required: true },
@@ -49,4 +51,4 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Post', postSchema);
+export default mongoose.model('Post', postSchema);

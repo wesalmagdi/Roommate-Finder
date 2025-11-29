@@ -1,6 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -11,6 +12,7 @@
     "bcryptjs": "^3.0.3",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.20.1"
+    "mongoose": "^8.20.1",
+    "dotenv": "^17.2.3"
   }
 }

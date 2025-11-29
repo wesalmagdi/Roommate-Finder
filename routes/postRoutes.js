@@ -1,7 +1,5 @@
-const express = require('express');
-const router = express.Router();
-
-const {
+import express from 'express';
+import {
   createPost,
   getAllPosts,
   getPostById,
@@ -9,9 +7,10 @@ const {
   updatePost,
   deletePost,
   searchPosts
-} = require('../controllers/postController');
+} from '../controllers/postController.js';
+import { protect } from '../middlewares/authMiddleware.js';
 
-const { protect } = require('../middlewares/authMiddleware');
+const router = express.Router();
 
 router.get('/', getAllPosts);      
 router.get('/:id', getPostById);  
@@ -24,4 +23,4 @@ router.put('/:id', protect, updatePost);
 router.delete('/:id', protect, deletePost); 
 router.get('/search', protect, searchPosts);
 
-module.exports = router;
+export default router;

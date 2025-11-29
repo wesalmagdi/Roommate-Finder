@@ -1,6 +1,7 @@
-const Post = require('../models/Post');
+import Post from '../models/Post.js';
 
-exports.createPost = async (req, res) => {
+// ---------------------- CREATE POST ----------------------
+export const createPost = async (req, res) => {
   try {
     const {
       title,
@@ -28,7 +29,7 @@ exports.createPost = async (req, res) => {
       gender,
       amenities,
       images,
-      createdBy: req.user.id 
+      createdBy: req.user.id
     });
 
     res.status(201).json({
@@ -41,7 +42,8 @@ exports.createPost = async (req, res) => {
   }
 };
 
-exports.getAllPosts = async (req, res) => {
+// ---------------------- GET POSTS ----------------------
+export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find().populate('createdBy', 'name email');
     res.json(posts);
@@ -51,7 +53,7 @@ exports.getAllPosts = async (req, res) => {
   }
 };
 
-exports.getPostById = async (req, res) => {
+export const getPostById = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate('createdBy', 'name email');
 
@@ -66,7 +68,8 @@ exports.getPostById = async (req, res) => {
   }
 };
 
-exports.getMyPosts = async (req, res) => {
+// ---------------------- USER POSTS ----------------------
+export const getMyPosts = async (req, res) => {
   try {
     const posts = await Post.find({ createdBy: req.user.id });
     res.json(posts);
@@ -76,7 +79,8 @@ exports.getMyPosts = async (req, res) => {
   }
 };
 
-exports.updatePost = async (req, res) => {
+// ---------------------- UPDATE POST ----------------------
+export const updatePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -120,7 +124,8 @@ exports.updatePost = async (req, res) => {
   }
 };
 
-exports.deletePost = async (req, res) => {
+// ---------------------- DELETE POST ----------------------
+export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -141,20 +146,21 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-exports.searchPosts = async (req, res) => {
-    try {
-        const { location, budget, gender } = req.query;
+// ---------------------- SEARCH POSTS ----------------------
+export const searchPosts = async (req, res) => {
+  try {
+    const { location, budget, gender } = req.query;
 
-        let filter = {};
-        if (location) filter.location = location;
-        if (budget) filter.rent = { $lte: budget }; // max budget
-        if (gender) filter.gender = gender;
+    let filter = {};
+    if (location) filter.location = location;
+    if (budget) filter.price = { $lte: budget };
+    if (gender) filter.gender = gender;
 
-        const posts = await Post.find(filter);
+    const posts = await Post.find(filter);
 
-        res.json(posts);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
+    res.json(posts);
+  } catch (error) {
+    console.error('Search posts error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };

@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { signup, login } from '../controllers/authController.js';
+import { protect } from '../middlewares/authMiddleware.js'; // JWT middleware
+
 const router = express.Router();
-const { signup, login } = require('../controllers/authController');
-const { protect } = require('../middlewares/authMiddleware'); // JWT middleware
 
 // Public routes
 router.post('/signup', signup);
@@ -9,7 +10,7 @@ router.post('/login', login);
 
 // Protected route example
 router.get('/me', protect, (req, res) => {
-    res.json({ message: 'Accessed protected route', user: req.user });
+  res.json({ message: 'Accessed protected route', user: req.user });
 });
 
-module.exports = router;
+export default router;

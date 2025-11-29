@@ -1,18 +1,21 @@
-require('dotenv').config();
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+import 'dotenv/config';             
+import express from 'express';
+import connectDB from './config/db.js';
+import authRoutes from './routes/auth.js';
+import postRoutes from './routes/postRoutes.js';
+import { logger } from './middlewares/logger.js';
 
-const authRoutes = require('./routes/auth'); 
-const postRoutes = require('./routes/posts');   // <-- ADD THIS
-const { logger } = require('./middlewares/logger');
+const app = express();
+const port = process.env.PORT || 5000;
+
+connectDB();
 
 app.use(express.json());
 app.use(logger);
 
 // Mount routes
 app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes);              // <-- ADD THIS
+app.use('/api/posts', postRoutes);
 
 app.get('/', (req, res) => {
     res.send('Roommate Finder Backend is running!');
