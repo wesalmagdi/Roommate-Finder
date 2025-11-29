@@ -4,10 +4,6 @@ import Navbar from './components/Navbar';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
-<<<<<<< HEAD
-import AboutUs from './screens/AboutUs';
-=======
->>>>>>> F_AddPost
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 function App() {
@@ -18,11 +14,8 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<HomeScreen />} />
-          <Route path="/about" element={<AboutUs />} />
-           
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/login" element={<LoginScreen />} />
-
         </Routes>
       </BrowserRouter>
 
