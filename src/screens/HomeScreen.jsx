@@ -1,22 +1,12 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import AddPostButton from "../components/AddPostbutton";
-<<<<<<< HEAD
-import AddPostForm from "./AppPostFrom";
-=======
 import AddPostForm from "./AddPostForm";
 import PostCard from "../components/Postcard";
->>>>>>> F_AddPost
 import "./HomeScreen.css";
 
 export default function HomeScreen() {
   const [openForm, setOpenForm] = useState(false);
-<<<<<<< HEAD
-
-  return (
-   <div className="home-screen">
-  
-=======
   const [posts, setPosts] = useState([]);
 
   const handleAddPost = (postData) => {
@@ -30,15 +20,10 @@ export default function HomeScreen() {
   return (
    <div className="home-screen">
 
->>>>>>> F_AddPost
         <div className="search-header">
             <SearchBar />
             <AddPostButton onOpen={() => setOpenForm(true)} />
         </div>
-<<<<<<< HEAD
-           {openForm && <AddPostForm onClose={() => setOpenForm(false)} />}
-              
-=======
            {openForm && <AddPostForm onClose={() => setOpenForm(false)} onSubmit={handleAddPost} />}
 
         {/* Posts Section */}
@@ -54,7 +39,6 @@ export default function HomeScreen() {
           )}
         </div>
 
->>>>>>> F_AddPost
          {/* 👇 Add long scroll area ONLY for Home screen */}
       <div style={{ height: "2000px", marginTop: "50px" }}>
         <h2 style={{ paddingTop: "100px", textAlign: "center" }}>
