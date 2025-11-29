@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('AboutUs Page', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/about'); // your AboutUs route
+    await page.goto('http://localhost:5173/about'); // your AboutUs route
   });
 
   test('renders hero section', async ({ page }) => {

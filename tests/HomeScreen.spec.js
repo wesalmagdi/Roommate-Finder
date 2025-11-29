@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('HomeScreen', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:3000/home'); // your HomeScreen route
+    await page.goto('http://localhost:5173/'); // your HomeScreen route
   });
 
   test('renders SearchBar', async ({ page }) => {
