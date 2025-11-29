@@ -11,10 +11,12 @@ test.describe('AboutUs Page', () => {
     await expect(page.locator('.hero-title')).toHaveText('Find Your Perfect Roommate');
   });
 
-  test('renders mission section', async ({ page }) => {
-    await expect(page.locator('.mission-section')).toBeVisible();
-    await expect(page.locator('.section-title')).toHaveText('Our Mission');
-  });
+ test('renders mission section', async ({ page }) => {
+  const missionSection = page.locator('.mission-section');
+  await expect(missionSection).toBeVisible();
+  await expect(missionSection.locator('.section-title')).toHaveText('Our Mission');
+});
+
 
   test('renders steps and icons', async ({ page }) => {
     await expect(page.locator('.step-card')).toHaveCount(4);
