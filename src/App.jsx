@@ -4,7 +4,10 @@ import Navbar from './components/Navbar';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+<<<<<<< HEAD
 import AboutUs from './screens/AboutUs';
+=======
+>>>>>>> F_AddPost
 
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 function App() {
