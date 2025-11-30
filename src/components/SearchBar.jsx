@@ -2,21 +2,18 @@ import React from "react";
 import "./SearchBar.css";
 
 function SearchBar() {
-  const [location, setLocation] = React.useState("");
-  const [minPrice, setMinPrice] = React.useState("");
-  const [maxPrice, setMaxPrice] = React.useState("");
+  const [city, setcity] = React.useState("");
+  const [budget, setbugdet] = React.useState("");
   const [gender, setGender] = React.useState("");
-  const [roomType, setRoomType] = React.useState("");
+  /*const [roomType, setRoomType] = React.useState("");*/
   const [btnHovered, setBtnHovered] = React.useState(false);
 
   function handleSearch(e) {
     e.preventDefault();
     console.log("Search for:", {
-      location,
-      minPrice,
-      maxPrice,
+      city,
+      budget,
       gender,
-      roomType,
     });
   }
 
@@ -25,70 +22,65 @@ function SearchBar() {
       
       <div className="field">
         <select
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
+          value={city}
+          onChange={(e) => setcity(e.target.value)}
           className="search-select"
         >
-          <option value="" disabled hidden>Location</option>
-          <option value="October">October</option>
-          <option value="Zayed">Zayed</option>
-          <option value="Haram">Haram</option>
-        </select>
-      </div>
-
-      <div className="field">
-        <select
-          value={roomType}
-          onChange={(e) => setRoomType(e.target.value)}
-          className="search-select"
-        >
-          <option value="" disabled hidden>Room Type</option>
-          <option value="Single">Single</option>
-          <option value="Shared">Shared</option>
-          <option value="Entire">Entire Place</option>
-        </select>
-      </div>
-
-      <div className="field">
-        <select
-          value={minPrice}
-          onChange={(e) => setMinPrice(e.target.value)}
-          className="search-select"
-        >
-          <option value="" disabled hidden>Min Price</option>
-          <option value="1000">1000 EGP</option>
-          <option value="1500">1500 EGP</option>
-          <option value="2000">2000 EGP</option>
-          
-        </select>
-      </div>
-
-      <div className="field">
-        <select
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-          className="search-select"
-        >
-          <option value="" disabled hidden>Max Price</option>
-          <option value="3000">3000 EGP</option>
-          <option value="3500">3500 EGP</option>
-          <option value="4000">4000 EGP</option>
-          <option value="4500">4500 EGP</option>
+         <option value="" disabled hidden>city</option>
+          <option value="Cairo">Cairo</option>
+          <option value="Giza">Giza</option>
+          <option value="Alexandria">Alexandria</option>
+          <option value="Qalyubia">Qalyubia</option>
+          <option value="Monufia">Monufia</option>
+          <option value="Gharbia">Gharbia</option>
+          <option value="Dakahlia">Dakahlia</option>
+          <option value="Sharqia">Sharqia</option>
+          <option value="Beheira">Beheira</option>
+          <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+          <option value="Damietta">Damietta</option>
+          <option value="Port Said">Port Said</option>
+          <option value="Ismailia">Ismailia</option>
+          <option value="Suez">Suez</option>
+          <option value="North Sinai">North Sinai</option>
+          <option value="South Sinai">South Sinai</option>
+          <option value="Faiyum">Faiyum</option>
+          <option value="Beni Suef">Beni Suef</option>
+          <option value="Minya">Minya</option>
+          <option value="Assiut">Assiut</option>
+          <option value="Sohag">Sohag</option>
+          <option value="Qena">Qena</option>
+          <option value="Luxor">Luxor</option>
+          <option value="Aswan">Aswan</option>
+          <option value="Red Sea">Red Sea</option>
+          <option value="New Valley">New Valley</option>
+          <option value="Matruh">Matruh</option>
+          <option value="Helwan">Helwan</option>
 
         </select>
       </div>
 
+      
       <div className="field">
         <select
           value={gender}
           onChange={(e) => setGender(e.target.value)}
           className="search-select"
         >
-          <option value="" disabled hidden>Semester</option>
-          <option value="Fall">Fall</option>
-          <option value="Spring">Spring</option>
-          <option value="Summer">Summer</option>
+          <option value="" disabled hidden>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
+      </div>
+
+      <div className="field">
+        <input
+          type="number"
+          value={budget}
+          onChange={(e) => setbugdet(e.target.value)}
+          className="search-input"
+          placeholder="Min Budget (EGP)"
+          min="0"
+        />
       </div>
 
       <button

@@ -6,7 +6,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    location: "",
+    /* location: "", */  // Location disabled
     city: "",
     address: "",
     price: "",
@@ -24,15 +24,15 @@ export default function AddPostForm({ onClose, onSubmit }) {
   const [errors, setErrors] = useState({});
 
   const governorates = [
-    "Cairo", "Alexandria", "Port Said", "Suez", "Damietta", "Dakahlia", "Sharkia",
-    "Qalyubia", "Kafr El Sheikh", "Gharbia", "Monufia", "Beheira", "Ismailia", "Giza",
-    "Beni Suef", "Fayoum", "Minya", "Asyut", "Sohag", "Qena", "Luxor", "Aswan",
-    "Red Sea", "New Valley", "Matrouh", "North Sinai", "South Sinai"
+    "Cairo","Alexandria","Port Said","Suez","Damietta","Dakahlia","Sharkia",
+    "Qalyubia","Kafr El Sheikh","Gharbia","Monufia","Beheira","Ismailia","Giza",
+    "Beni Suef","Fayoum","Minya","Asyut","Sohag","Qena","Luxor","Aswan",
+    "Red Sea","New Valley","Matrouh","North Sinai","South Sinai"
   ];
 
   const amenitiesList = [
-    "WiFi", "Parking", "Gym", "Pool", "Laundry",
-    "Air Conditioning", "Heating", "Kitchen", "Balcony", "Pet Friendly"
+    "WiFi","Parking","Gym","Pool","Laundry","Air Conditioning",
+    "Heating","Kitchen","Balcony","Pet Friendly"
   ];
 
   const handleInputChange = (e) => {
@@ -41,7 +41,6 @@ export default function AddPostForm({ onClose, onSubmit }) {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
   };
 
-  // Mutually exclusive checkbox logic
   const handleCheckboxChange = (name, checked) => {
     setFormData(prev => {
       const updated = { ...prev, [name]: checked };
@@ -72,17 +71,16 @@ export default function AddPostForm({ onClose, onSubmit }) {
     const newErrors = {};
     if (!formData.title.trim()) newErrors.title = "Title is required";
     if (!formData.description.trim()) newErrors.description = "Description is required";
-    if (!formData.location.trim()) newErrors.location = "Location is required";
+    /* Location removed */
     if (!formData.city.trim()) newErrors.city = "City is required";
     if (!formData.address.trim()) newErrors.address = "Address is required";
     if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = "Valid price is required";
     if (!formData.gender) newErrors.gender = "Gender preference is required";
     if (formData.images.length === 0) newErrors.images = "At least one image is required";
     if (!formData.contact_Email.trim()) newErrors.contact_Email = "Contact email is required";
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-    
   };
 
   const handleSubmit = (e) => {
@@ -97,6 +95,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
     <div className="addpost-overlay">
       <div className="addpost-container">
         <h2>Create New Post</h2>
+
         <form onSubmit={handleSubmit}>
 
           {/* Title */}
@@ -128,40 +127,39 @@ export default function AddPostForm({ onClose, onSubmit }) {
             {errors.description && <span className="error-message">{errors.description}</span>}
           </div>
 
-          {/* Location + City */}
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="location">Location *</label>
-              <input
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleInputChange}
-                placeholder="District / Area"
-                className={errors.location ? "error" : ""}
-              />
-              {errors.location && <span className="error-message">{errors.location}</span>}
-            </div>
-
-
-
-            <div className="form-group">
-              <label htmlFor="city">City *</label>
-              <select
-                id="city"
-                name="city"
-                value={formData.city}
-                onChange={handleInputChange}
-                className={errors.city ? "error" : ""}
-              >
-                <option value="">Select Governorate</option>
-                {governorates.map(gov => <option key={gov} value={gov}>{gov}</option>)}
-              </select>
-              {errors.city && <span className="error-message">{errors.city}</span>}
-            </div>
+          {/* Location (DISABLED) */}
+          {/*
+          <div className="form-group">
+            <label htmlFor="location">Location *</label>
+            <input
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleInputChange}
+              placeholder="District / Area"
+              className={errors.location ? "error" : ""}
+            />
+            {errors.location && <span className="error-message">{errors.location}</span>}
           </div>
+          */}
 
-          
+          {/* City */}
+          <div className="form-group">
+            <label htmlFor="city">City *</label>
+            <select
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleInputChange}
+              className={errors.city ? "error" : ""}
+            >
+              <option value="">Select Governorate</option>
+              {governorates.map(g => (
+                <option key={g} value={g}>{g}</option>
+              ))}
+            </select>
+            {errors.city && <span className="error-message">{errors.city}</span>}
+          </div>
 
           {/* Address */}
           <div className="form-group">
@@ -208,9 +206,10 @@ export default function AddPostForm({ onClose, onSubmit }) {
             {errors.gender && <span className="error-message">{errors.gender}</span>}
           </div>
 
-          {/* Property Features 2x2 Grid */}
+          {/* Property Features */}
           <div className="form-group property-features">
             <label>Property Features</label>
+
             <div className="checkbox-group" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
               <div className="checkbox-item">
                 <input
@@ -219,8 +218,9 @@ export default function AddPostForm({ onClose, onSubmit }) {
                   checked={formData.furnished}
                   onChange={(e) => handleCheckboxChange("furnished", e.target.checked)}
                 />
-                <label htmlFor="furnished" className="checkbox-label">Furnished</label>
+                <label htmlFor="furnished">Furnished</label>
               </div>
+
               <div className="checkbox-item">
                 <input
                   type="checkbox"
@@ -228,8 +228,9 @@ export default function AddPostForm({ onClose, onSubmit }) {
                   checked={formData.notFurnished}
                   onChange={(e) => handleCheckboxChange("notFurnished", e.target.checked)}
                 />
-                <label htmlFor="notFurnished" className="checkbox-label">Not Furnished</label>
+                <label htmlFor="notFurnished">Not Furnished</label>
               </div>
+
               <div className="checkbox-item">
                 <input
                   type="checkbox"
@@ -237,8 +238,9 @@ export default function AddPostForm({ onClose, onSubmit }) {
                   checked={formData.smokingAllowed}
                   onChange={(e) => handleCheckboxChange("smokingAllowed", e.target.checked)}
                 />
-                <label htmlFor="smokingAllowed" className="checkbox-label">Smoking Allowed</label>
+                <label htmlFor="smokingAllowed">Smoking Allowed</label>
               </div>
+
               <div className="checkbox-item">
                 <input
                   type="checkbox"
@@ -246,7 +248,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
                   checked={formData.noSmoking}
                   onChange={(e) => handleCheckboxChange("noSmoking", e.target.checked)}
                 />
-                <label htmlFor="noSmoking" className="checkbox-label">No Smoking</label>
+                <label htmlFor="noSmoking">No Smoking</label>
               </div>
             </div>
           </div>
@@ -268,7 +270,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
             </div>
           </div>
 
-          {/* Contact Info */}{/* Address */}
+          {/* Contact Email */}
           <div className="form-group">
             <label htmlFor="contact_Email">Contact Email *</label>
             <input
@@ -282,8 +284,9 @@ export default function AddPostForm({ onClose, onSubmit }) {
             {errors.contact_Email && <span className="error-message">{errors.contact_Email}</span>}
           </div>
 
+          {/* Contact Phone */}
           <div className="form-group">
-            <label htmlFor="contact_Phone">Contact Phone </label>
+            <label htmlFor="contact_Phone">Contact Phone</label>
             <input
               id="contact_Phone"
               name="contact_Phone"
@@ -295,7 +298,6 @@ export default function AddPostForm({ onClose, onSubmit }) {
             {errors.contact_Phone && <span className="error-message">{errors.contact_Phone}</span>}
           </div>
 
-
           {/* Images */}
           <div className="form-group">
             <label>Images *</label>
@@ -303,7 +305,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
             {errors.images && <span className="error-message">{errors.images}</span>}
           </div>
 
-          {/* Submit */}
+          {/* Buttons */}
           <div className="buttons">
             <button type="submit" className="confirm-btn">Submit Post</button>
             <button type="button" className="cancel-btn" onClick={onClose}>Close</button>
