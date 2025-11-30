@@ -6,7 +6,6 @@ export const createPost = async (req, res) => {
     const {
       title,
       description,
-      location,
       city,
       address,
       price,
@@ -20,7 +19,6 @@ export const createPost = async (req, res) => {
     const post = await Post.create({
       title,
       description,
-      location,
       city,
       address,
       price,
@@ -95,7 +93,6 @@ export const updatePost = async (req, res) => {
     const updatableFields = [
       'title',
       'description',
-      'location',
       'city',
       'address',
       'price',
@@ -149,10 +146,10 @@ export const deletePost = async (req, res) => {
 // ---------------------- SEARCH POSTS ----------------------
 export const searchPosts = async (req, res) => {
   try {
-    const { location, budget, gender } = req.query;
+    const { city, budget, gender } = req.query;
 
     let filter = {};
-    if (location) filter.location = location;
+    if (city) filter.city = city;
     if (budget) filter.price = { $lte: budget };
     if (gender) filter.gender = gender;
 

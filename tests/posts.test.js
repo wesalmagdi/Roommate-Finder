@@ -23,7 +23,6 @@ describe('Post Routes', () => {
     const postData = {
       title: 'Room for rent',
       description: 'Nice room available',
-      location: 'Downtown',
       city: 'Cairo',
       address: '123 Street',
       price: 500,
@@ -49,7 +48,6 @@ describe('Post Routes', () => {
     const post = await Post.create({
       title: 'Old title',
       description: 'desc',
-      location: 'loc',
       city: 'city',
       address: 'addr',
       price: 100,
@@ -66,7 +64,6 @@ describe('Post Routes', () => {
     const post = await Post.create({
       title: 'To delete',
       description: 'desc',
-      location: 'loc',
       city: 'city',
       address: 'addr',
       price: 100,
@@ -82,7 +79,6 @@ describe('Post Routes', () => {
     await Post.create({
       title: 'Room A',
       description: 'desc',
-      location: 'Downtown',
       city: 'Cairo',
       address: 'addr',
       price: 400,
@@ -90,7 +86,7 @@ describe('Post Routes', () => {
       createdBy: userId
     });
 
-    const res = await request(app).get('/api/posts/search').query({ location: 'Downtown', budget: 500, gender: 'any' }).set('Authorization', `Bearer ${token}`);
+    const res = await request(app).get('/api/posts/search').query({ city: 'Cairo', budget: 500, gender: 'any' }).set('Authorization', `Bearer ${token}`);
     expect(res.statusCode).toBe(200);
     expect(res.body.length).toBe(1);
   });
