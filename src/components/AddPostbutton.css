@@ -1,0 +1,26 @@
+.add-post-btn {
+  width: 45px;        /* Equal width & height → square */
+  height: 45px;       /* Square */
+  border-radius: 10px; /* Rounded corners (adjust as you like) */
+  border: none;
+  background-color: #242c4e;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+
+  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  transition: 0.2s;
+}
+
+.add-post-btn:hover {
+  transform: scale(1.07);
+  background-color: #ffffff;
+  color: #242c4e;
+}
