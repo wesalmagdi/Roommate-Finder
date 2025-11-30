@@ -1,0 +1,3 @@
+- [x] Update import in HomeScreen.jsx to match the filename AddPostFrom.jsx
+- [x] Add onClose prop to AddPostForm component in AddPostFrom.jsx
+- [x] Restructure JSX in AddPostFrom.jsx to use modal overlay classes from AddPostForm.css
