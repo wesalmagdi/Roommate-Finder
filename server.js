@@ -1,5 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/postRoutes.js';
@@ -8,8 +11,15 @@ import { logger } from './middlewares/logger.js';
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve uploads folder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use(express.json());
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(logger);
 
 // Routes

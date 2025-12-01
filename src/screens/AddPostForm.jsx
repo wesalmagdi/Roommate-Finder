@@ -42,15 +42,9 @@ export default function AddPostForm({ onClose, onSubmit }) {
   };
 
   const handleCheckboxChange = (name, checked) => {
-    setFormData(prev => {
-      const updated = { ...prev, [name]: checked };
-      if (name === "furnished" && checked) updated.notFurnished = false;
-      if (name === "notFurnished" && checked) updated.furnished = false;
-      if (name === "smokingAllowed" && checked) updated.noSmoking = false;
-      if (name === "noSmoking" && checked) updated.smokingAllowed = false;
-      return updated;
-    });
+  setFormData(prev => ({ ...prev, [name]: checked }));
   };
+
 
   const handleAmenityToggle = (amenity) => {
     setFormData(prev => ({
@@ -224,34 +218,15 @@ export default function AddPostForm({ onClose, onSubmit }) {
               <div className="checkbox-item">
                 <input
                   type="checkbox"
-                  id="notFurnished"
-                  checked={formData.notFurnished}
-                  onChange={(e) => handleCheckboxChange("notFurnished", e.target.checked)}
-                />
-                <label htmlFor="notFurnished">Not Furnished</label>
-              </div>
-
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
                   id="smokingAllowed"
                   checked={formData.smokingAllowed}
                   onChange={(e) => handleCheckboxChange("smokingAllowed", e.target.checked)}
                 />
                 <label htmlFor="smokingAllowed">Smoking Allowed</label>
               </div>
-
-              <div className="checkbox-item">
-                <input
-                  type="checkbox"
-                  id="noSmoking"
-                  checked={formData.noSmoking}
-                  onChange={(e) => handleCheckboxChange("noSmoking", e.target.checked)}
-                />
-                <label htmlFor="noSmoking">No Smoking</label>
-              </div>
             </div>
           </div>
+
 
           {/* Amenities */}
           <div className="form-group amenities">

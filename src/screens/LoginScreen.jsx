@@ -1,15 +1,23 @@
 import React from "react";
-import './LoginScreen.css'; // create this CSS file
+import './LoginScreen.css';
 import { Link } from "react-router-dom";
+import api from "../api"; // <-- use helper
 
 function LoginScreen() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    function Login() {
-        const user = { email, password };
-        console.log(user);
-    }
+    const Login = async () => {
+        try {
+            const response = await api.loginUser({ email, password }); // <-- call helper
+            console.log("Login successful:", response);
+            alert("Login successful!");
+            // TODO: navigate or store token
+        } catch (err) {
+            console.error("Login failed:", err);
+            alert("Login failed. Check your credentials.");
+        }
+    };
 
     return (
         <div className="login-container">

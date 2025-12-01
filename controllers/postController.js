@@ -12,9 +12,29 @@ export const createPost = async (req, res) => {
       furnished,
       smokingAllowed,
       gender,
-      amenities,
-      images
+      contact_Email,
+      contact_Phone,
     } = req.body;
+
+    const amenitiesMap = {
+      "WiFi": "wifi",
+      "Parking": "parking",
+      "Air Conditioning": "airConditioning",
+      "Laundry": "washingMachine",
+      "Fridge": "fridge",
+      "Elevator": "elevator",
+      "Balcony": "balcony",
+      "Pet Friendly": "petFriendly"
+    };
+
+    const amenitiesObject = {};
+    const incomingAmenities = req.body.amenities ? JSON.parse(req.body.amenities) : [];
+    incomingAmenities.forEach(a => {
+      const key = amenitiesMap[a];
+      if (key) amenitiesObject[key] = true;
+    });
+
+    const images = req.files?.map(f => f.filename) || [];
 
     const post = await Post.create({
       title,
@@ -22,28 +42,30 @@ export const createPost = async (req, res) => {
       city,
       address,
       price,
-      furnished,
-      smokingAllowed,
+      furnished: furnished === "true",
+      smokingAllowed: smokingAllowed === "true",
       gender,
-      amenities,
+      amenities: amenitiesObject,
+      contact_Email,
+      contact_Phone,
       images,
-      createdBy: req.user.id
+      // createdBy: req.user.id
     });
 
-    res.status(201).json({
-      message: 'Post created successfully',
-      post
-    });
+    res.status(201).json({ message: "Post created successfully", post });
+
   } catch (error) {
-    console.error('Create post error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error("Create post error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
+
 
 // ---------------------- GET POSTS ----------------------
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('createdBy', 'name email');
+    const posts = await Post.find();
     res.json(posts);
   } catch (error) {
     console.error('Get posts error:', error);
@@ -149,9 +171,9 @@ export const searchPosts = async (req, res) => {
     const { city, budget, gender } = req.query;
 
     let filter = {};
-    if (city) filter.city = city;
-    if (budget) filter.price = { $lte: budget };
-    if (gender) filter.gender = gender;
+    if (city) filter.city = new RegExp(`^${city}$`, "i");
+    if (gender) filter.gender = new RegExp(`^${gender}$`, "i");
+    if (budget) filter.price = { $lte: Number(budget) };
 
     const posts = await Post.find(filter);
 

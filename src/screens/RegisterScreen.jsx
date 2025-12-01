@@ -1,8 +1,10 @@
 import React from "react";
 import './RegisterScreen.css'; 
 import { Link } from "react-router-dom";
+import api from "../api";
 
 function RegisterScreen() {
+    const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -12,36 +14,40 @@ function RegisterScreen() {
 
     function validate() {
         const newErrors = {};
+        if (!name.trim()) newErrors.name = "Name is required";
         if (!email || email.trim() === "") {
             newErrors.email = "Email is required";
         } else {
-            // basic email format check (optional)
             const re = /^\S+@\S+\.\S+$/;
             if (!re.test(email)) newErrors.email = "Enter a valid email address";
         }
-
         if (!password) newErrors.password = "Password is required";
         if (!confirmPassword) newErrors.confirmPassword = "Confirm password is required";
         if (password && confirmPassword && password !== confirmPassword) {
             newErrors.confirmPassword = "Passwords do not match";
         }
-
         if (!gender) newErrors.gender = "Please select a gender";
-
         return newErrors;
     }
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
-            const user = { email, password, gender, university };
-            console.log("Registering user:", user);
-            // TODO: call API to register user
-            // Clear form or navigate after successful registration
+            // Match backend expectations for gender
+            const genderBackend = gender.toLowerCase();
+            const user = { name, email, password, gender: genderBackend, university };
+            try {
+                const response = await api.registerUser(user);
+                console.log("Registration successful:", response);
+                alert("User registered successfully!");
+            } catch (err) {
+                console.error("Registration failed:", err);
+                alert(`Registration failed: ${err.message}`);
+            }
         }
-    }
+    };
 
     return (
         <div className="register-container">
@@ -59,6 +65,16 @@ function RegisterScreen() {
 
                 <form onSubmit={handleSubmit} noValidate>
                     <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+
+                    <input
                         type="email"
                         name="email"
                         className="form-control"
@@ -67,7 +83,6 @@ function RegisterScreen() {
                         onChange={(e) => setEmail(e.target.value)}
                         required
                     />
-                   
 
                     <input
                         type="password"
@@ -78,7 +93,6 @@ function RegisterScreen() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    
 
                     <input
                         type="password"
@@ -89,13 +103,12 @@ function RegisterScreen() {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-                    
 
                     <input
                         type="text"
                         name="university"
                         className="form-control"
-                        placeholder="University"
+                        placeholder="University (optional)"
                         value={university}
                         onChange={(e) => setUniversity(e.target.value)}
                     />
@@ -105,8 +118,8 @@ function RegisterScreen() {
                             <input
                                 type="radio"
                                 name="gender"
-                                value="Male"
-                                checked={gender === "Male"}
+                                value="male"
+                                checked={gender === "male"}
                                 onChange={(e) => setGender(e.target.value)}
                                 required
                             /> Male
@@ -115,13 +128,12 @@ function RegisterScreen() {
                             <input
                                 type="radio"
                                 name="gender"
-                                value="Female"
-                                checked={gender === "Female"}
+                                value="female"
+                                checked={gender === "female"}
                                 onChange={(e) => setGender(e.target.value)}
                                 required
                             /> Female
                         </label>
-                        
                     </div>
 
                     <button className="register-btn" type="submit">
@@ -129,7 +141,7 @@ function RegisterScreen() {
                     </button>
                 </form>
 
-               <p className="register-text">Have an account? <Link to="/login">Login here.</Link></p>
+                <p className="register-text">Have an account? <Link to="/login">Login here.</Link></p>
             </div>
         </div>
     );

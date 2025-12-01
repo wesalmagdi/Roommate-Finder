@@ -1,65 +1,56 @@
 import React from "react";
 import "./SearchBar.css";
+import api from "../api"; // <-- use API helper
 
-function SearchBar() {
-  const [city, setcity] = React.useState("");
-  const [budget, setbugdet] = React.useState("");
+function SearchBar({ onSearch }) { // receive callback from HomeScreen
+  const [city, setCity] = React.useState("");
+  const [budget, setBudget] = React.useState("");
   const [gender, setGender] = React.useState("");
-  /*const [roomType, setRoomType] = React.useState("");*/
   const [btnHovered, setBtnHovered] = React.useState(false);
 
-  function handleSearch(e) {
-    e.preventDefault();
-    console.log("Search for:", {
-      city,
-      budget,
-      gender,
-    });
-  }
+  const governorates = [
+    "Cairo","Alexandria","Port Said","Suez","Damietta","Dakahlia","Sharkia",
+    "Qalyubia","Kafr El Sheikh","Gharbia","Monufia","Beheira","Ismailia","Giza",
+    "Beni Suef","Fayoum","Minya","Asyut","Sohag","Qena","Luxor","Aswan",
+    "Red Sea","New Valley","Matrouh","North Sinai","South Sinai"
+  ];
+
+const handleSearch = async (e) => {
+  e.preventDefault();
+
+  const filters = {};
+  if (city) filters.city = city;
+  if (gender) filters.gender = gender;
+  if (budget) filters.budget = budget;
+
+  if (onSearch) onSearch(filters);
+  // try {
+  //   const results = await api.searchPosts(filters);
+  //   console.log("Search results:", results);
+  //   if (onSearch) onSearch(results);
+  // } catch (err) {
+  //   console.error("Search failed:", err);
+  //   alert("Search failed. Try again.");
+  // }
+};
+
+
 
   return (
     <form className="search-container" onSubmit={handleSearch}>
-      
       <div className="field">
         <select
           value={city}
-          onChange={(e) => setcity(e.target.value)}
+          onChange={(e) => setCity(e.target.value)}
           className="search-select"
         >
-         <option value="" disabled hidden>city</option>
-          <option value="Cairo">Cairo</option>
-          <option value="Giza">Giza</option>
-          <option value="Alexandria">Alexandria</option>
-          <option value="Qalyubia">Qalyubia</option>
-          <option value="Monufia">Monufia</option>
-          <option value="Gharbia">Gharbia</option>
-          <option value="Dakahlia">Dakahlia</option>
-          <option value="Sharqia">Sharqia</option>
-          <option value="Beheira">Beheira</option>
-          <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-          <option value="Damietta">Damietta</option>
-          <option value="Port Said">Port Said</option>
-          <option value="Ismailia">Ismailia</option>
-          <option value="Suez">Suez</option>
-          <option value="North Sinai">North Sinai</option>
-          <option value="South Sinai">South Sinai</option>
-          <option value="Faiyum">Faiyum</option>
-          <option value="Beni Suef">Beni Suef</option>
-          <option value="Minya">Minya</option>
-          <option value="Assiut">Assiut</option>
-          <option value="Sohag">Sohag</option>
-          <option value="Qena">Qena</option>
-          <option value="Luxor">Luxor</option>
-          <option value="Aswan">Aswan</option>
-          <option value="Red Sea">Red Sea</option>
-          <option value="New Valley">New Valley</option>
-          <option value="Matruh">Matruh</option>
-          <option value="Helwan">Helwan</option>
-
+          <option value="" disabled hidden>Select City</option>
+          {governorates.map((g) => (
+            <option key={g} value={g}>{g}</option>
+          ))}
         </select>
       </div>
 
-      
       <div className="field">
         <select
           value={gender}
@@ -76,7 +67,7 @@ function SearchBar() {
         <input
           type="number"
           value={budget}
-          onChange={(e) => setbugdet(e.target.value)}
+          onChange={(e) => setBudget(e.target.value)}
           className="search-input"
           placeholder="Min Budget (EGP)"
           min="0"
