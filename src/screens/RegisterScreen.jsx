@@ -2,6 +2,8 @@ import React from "react";
 import './RegisterScreen.css'; 
 import { Link } from "react-router-dom";
 import api from "../api";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function RegisterScreen() {
     const [name, setName] = React.useState("");
@@ -11,6 +13,9 @@ function RegisterScreen() {
     const [gender, setGender] = React.useState("");
     const [university, setUniversity] = React.useState("");
     const [errors, setErrors] = React.useState({});
+    
+    const { login } = React.useContext(AuthContext);
+    const navigate = useNavigate();
 
     function validate() {
         const newErrors = {};
@@ -41,7 +46,16 @@ function RegisterScreen() {
             try {
                 const response = await api.registerUser(user);
                 console.log("Registration successful:", response);
-                alert("User registered successfully!");
+                 // Store user info in localStorage
+                    localStorage.setItem("user", JSON.stringify(response.user));
+
+                    // Update AuthContext
+                    login({
+                    ...response.user,
+                    token: response.token
+                    });
+
+                navigate("/");
             } catch (err) {
                 console.error("Registration failed:", err);
                 alert(`Registration failed: ${err.message}`);

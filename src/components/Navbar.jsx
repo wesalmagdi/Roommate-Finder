@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+import { AuthContext } from "../context/AuthContext";
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+   const { user, logout } = useContext(AuthContext);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,16 +49,46 @@ function Navbar() {
         {/* Right Section - Auth Links */}
         <div className="nav-right">
           <ul className="navbar-nav">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/register">
-                Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
+            {!user ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Register</Link>
+                </li>
+              </>
+            ) : (
+              
+                <li className="nav-item dropdown">
+                  <button
+          className="profile-btn"
+          data-bs-toggle="dropdown"
+          style={{ background: "none", border: "none" }}
+        >
+          <img
+            src="/src/assets/userIcon.svg"
+            alt="Profile"
+            className="profile-icon"
+            style={{ width: "30px", height: "30px", cursor: "pointer" }}
+          />
+        </button>
+          <ul className="dropdown-menu dropdown-menu-end">
+          <li>
+            <Link className="dropdown-item" to="/profile">Profile</Link>
+          </li>
+          <li>
+            <button className="dropdown-item" onClick={() => {
+              localStorage.removeItem("user");
+              window.location.href = "/";
+            }}>
+              Logout
+            </button>
+          </li>
+          </ul>
+                </li>
+              
+            )}
           </ul>
         </div>
 

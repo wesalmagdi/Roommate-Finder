@@ -114,3 +114,25 @@ body {
   display: none;
 }
 
+
+/* Base icon size */
+.profile-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin-left: 1rem;
+}
+
+/* Hover effect */
+.profile-icon:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
+}
+
+/* When scrolled, change icon color (optional for white icons) */
+.navbar-scrolled .profile-icon {
+  filter: brightness(0.2);
+}
+

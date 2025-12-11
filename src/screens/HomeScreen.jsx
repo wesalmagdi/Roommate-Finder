@@ -90,11 +90,7 @@ const handleSearchResults = async (filters) => {
         )}
       </div>
 
-      <div style={{ height: "2000px", marginTop: "50px" }}>
-        <h2 style={{ paddingTop: "100px", textAlign: "center" }}>
-          Scroll to test sticky navbar
-        </h2>
-      </div>
+      
     </div>
   );
 }
