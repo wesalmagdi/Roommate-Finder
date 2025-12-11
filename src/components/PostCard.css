@@ -150,3 +150,12 @@
   font-size: 12px;
   font-weight: 500;
 }
+
+
+.post-card {
+  flex: 0 0 calc(50% - 10px); /* two cards per row, minus half of gap */
+  box-sizing: border-box;      
+  margin-bottom: 20px;         
+}
+
+

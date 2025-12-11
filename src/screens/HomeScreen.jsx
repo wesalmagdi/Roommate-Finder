@@ -86,11 +86,14 @@ const handleSearchResults = async (filters) => {
             No posts yet. Click the + button to add your first post!
           </p>
         ) : (
-          posts.map((post) => <PostCard key={post._id} post={post} />)
+       <div className="posts-grid">
+            {posts.map((post) => (
+              <PostCard key={post._id} post={post} />
+            ))}
+          </div>
         )}
       </div>
-
-      
+  
     </div>
   );
 }

@@ -25,6 +25,8 @@ const postSchema = new mongoose.Schema(
     gender: { type: String, enum: ['male', 'female'], required: true },
     amenities: { type: amenitiesSchema, default: () => ({}) },
     images: [{ type: String }],
+    contact_Email: { type: String, required: true },
+    contact_Phone: { type: String },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
   },
   { timestamps: true }
