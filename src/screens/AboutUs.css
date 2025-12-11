@@ -1,0 +1,244 @@
+/* About Us Page Styles */
+
+.about-container {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Hero Section */
+.hero-section {
+background: linear-gradient(135deg, #242c4e 0%, #8693c0 100%);
+  padding: 120px 24px 80px;
+  text-align: center;
+  color: white;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  opacity: 0.95;
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 80px 24px;
+  background: var(--color-card);
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--color-foreground);
+}
+
+.mission-text {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--color-muted-foreground);
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 80px 24px;
+  background: var(--color-muted);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.step-card {
+  background: var(--color-card);
+  padding: 40px 32px;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--color-border);
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #00020a 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--color-foreground);
+}
+
+.step-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-muted-foreground);
+}
+
+/* Values Section */
+.values-section {
+  padding: 80px 24px;
+  background: var(--color-card);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.value-card {
+  padding: 32px;
+  border-left: 4px solid #667eea;
+  background: var(--color-muted);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  border-left-color: #764ba2;
+  background: var(--color-accent);
+}
+
+.value-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--color-foreground);
+}
+
+.value-description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-muted-foreground);
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 100px 24px;
+  background: linear-gradient(135deg, #242c4e 0%, #8693c0 100%);
+  text-align: center;
+  color: white;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.cta-text {
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+}
+
+.cta-button {
+  background: white;
+  color: #667eea;
+  padding: 16px 48px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .mission-text {
+    font-size: 1.125rem;
+  }
+  
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 80px 16px 60px;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .mission-section,
+  .how-it-works-section,
+  .values-section {
+    padding: 60px 16px;
+  }
+  
+  .cta-section {
+    padding: 60px 16px;
+  }
+}
