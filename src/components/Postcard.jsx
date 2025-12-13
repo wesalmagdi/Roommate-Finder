@@ -72,8 +72,8 @@ export default function PostCard({ post }) {
         <div className="post-features">
           {furnished && <span className="feature-tag">Furnished</span>}
           {smokingAllowed && <span className="feature-tag">Smoking Allowed</span>}
-          {!furnished && <span className="feature-tag">Unfurnished</span>}
-          {!smokingAllowed && <span className="feature-tag">No Smoking</span>}
+          {!furnished && <span className="feature-tag-not">Unfurnished</span>}
+          {!smokingAllowed && <span className="feature-tag-not">No Smoking</span>}
         </div>
 
         {safeAmenities.length > 0 && (

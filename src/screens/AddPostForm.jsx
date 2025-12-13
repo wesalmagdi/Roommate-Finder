@@ -2,23 +2,23 @@
 import React, { useState } from "react";
 import "./AddPostForm.css";
 
-export default function AddPostForm({ onClose, onSubmit }) {
+export default function AddPostForm({ onClose, onSubmit, initialData }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
+    title: initialData?.title || "",
+    description: initialData?.description || "",
     /* location: "", */  // Location disabled
-    city: "",
-    address: "",
-    price: "",
-    furnished: false,
+    city: initialData?.city || "",
+    address: initialData?.address || "",
+    price: initialData?.price || "",
+    furnished: initialData?.furnished || false,
     notFurnished: false,
-    smokingAllowed: false,
+    smokingAllowed: initialData?.smokingAllowed || false,
     noSmoking: false,
-    gender: "",
-    amenities: [],
-    contact_Email: "",
-    contact_Phone: "",
-    images: []
+    gender: initialData?.gender || "",
+    amenities: initialData?.amenities ? Object.keys(initialData.amenities).filter(key => initialData.amenities[key]) : [], // Convert amenities object to array
+    contact_Email: initialData?.contact_Email || "",
+    contact_Phone: initialData?.contact_Phone || "",
+    images: [] // Images not pre-filled for simplicity
   });
 
   const [errors, setErrors] = useState({});
@@ -88,7 +88,7 @@ export default function AddPostForm({ onClose, onSubmit }) {
   return (
     <div className="addpost-overlay">
       <div className="addpost-container">
-        <h2>Create New Post</h2>
+        <h2>{initialData ? "Edit Post" : "Create New Post"}</h2> 
 
         <form onSubmit={handleSubmit}>
 

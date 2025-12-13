@@ -5,7 +5,7 @@
   padding: 0.5rem;
   padding-top: 0;
   margin-top: 0;
-  gap: 20px; /* spacing between searchbar and posts */
+  gap: 20px; /* spacing between searchbar and posts */ 
 }
 
 
@@ -16,7 +16,7 @@
   align-items: center;
   gap: 12px;       /* space between search bar and button */
   margin: top 10px;;
-  padding-top: 0; /* sits just below the fixed navbar with minimal gap */
+  padding-top: 70px; /* sits just below the fixed navbar with minimal gap */
   width: 100%;
 }
 
