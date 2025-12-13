@@ -13,7 +13,9 @@ export default function PostCard({ post }) {
     smokingAllowed,
     gender,
     amenities,
-    images
+    images,
+    contact_Email,
+    contact_Phone
   } = post;
 
   // Safe defaults
@@ -57,13 +59,21 @@ export default function PostCard({ post }) {
             <span className="detail-label">Gender:</span>
             <span>{gender === "male" ? "Male Only" : gender === "female" ? "Female Only" : "Any"}</span>
           </div>
+          <div className="detail-item">
+            <span className="detail-label">Contact Email:</span>
+            <span>{contact_Email || "N/A"}</span>
+          </div>
+          <div className="detail-item">
+            <span className="detail-label">Contact Phone:</span>
+            <span>{contact_Phone || "N/A"}</span>
+          </div>
         </div>
 
         <div className="post-features">
           {furnished && <span className="feature-tag">Furnished</span>}
           {smokingAllowed && <span className="feature-tag">Smoking Allowed</span>}
-          {!furnished && <span className="feature-tag">Unfurnished</span>}
-          {!smokingAllowed && <span className="feature-tag">No Smoking</span>}
+          {!furnished && <span className="feature-tag-not">Unfurnished</span>}
+          {!smokingAllowed && <span className="feature-tag-not">No Smoking</span>}
         </div>
 
         {safeAmenities.length > 0 && (

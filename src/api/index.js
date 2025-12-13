@@ -67,9 +67,9 @@ export async function addPost(postData, token) {
 
   const response = await fetch(`${BASE_URL}/posts`, {
     method: "POST",
-    // headers: {
-    //   Authorization: `Bearer ${token}` 
-    // },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     body: form,
   });
 
@@ -92,10 +92,78 @@ export async function searchPosts(filters = {}) { // <-- default empty object
   if (!response.ok) throw new Error(data.message || 'Search failed');
   return data;
 }
+
+export async function getMyPosts(token) {
+  const response = await fetch(`${BASE_URL}/posts/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || 'Get my posts failed');
+  return data;
+}
+
+export async function updatePost(postId, postData, token) {
+  const form = new FormData();
+
+  // append text fields, booleans and arrays/objects properly
+  Object.keys(postData).forEach((key) => {
+    if (key === "images") return; // handled separately below
+
+    const value = postData[key];
+
+    if (typeof value === "boolean") {
+      form.append(key, value ? "true" : "false");
+    } else if (Array.isArray(value) || (value && typeof value === "object")) {
+      // arrays and objects -> JSON string
+      form.append(key, JSON.stringify(value));
+    } else if (value !== undefined && value !== null) {
+      form.append(key, String(value));
+    }
+  });
+
+  // append images (File objects)
+  if (Array.isArray(postData.images)) {
+    postData.images.forEach((file) => {
+      form.append("images", file);
+    });
+  }
+
+  const response = await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: form,
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.message || "Update post failed");
+  return data;
+}
+
+export async function deletePost(postId, token) {
+  const response = await fetch(`${BASE_URL}/posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.message || "Delete post failed");
+  }
+}
+
 export default {
   registerUser,
   loginUser,
   getPosts,
   addPost,
-  searchPosts
+  searchPosts,
+  getMyPosts,
+  updatePost,
+  deletePost
 };

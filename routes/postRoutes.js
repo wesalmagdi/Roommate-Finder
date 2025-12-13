@@ -27,7 +27,7 @@ router.get('/', getAllPosts);
 router.get('/:id', getPostById);
 
 // Create / update / delete
-router.post("/", upload.array("images"), createPost);
+router.post("/", protect, upload.array("images"), createPost); // Added protect middleware to associate posts with authenticated users
 router.put('/:id', protect, updatePost);   
 router.delete('/:id', protect, deletePost); 
 

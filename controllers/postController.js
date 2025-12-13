@@ -49,7 +49,7 @@ export const createPost = async (req, res) => {
       contact_Email,
       contact_Phone,
       images,
-      // createdBy: req.user.id
+      createdBy: req.user.id // Uncommented to associate posts with authenticated users
     });
 
     res.status(201).json({ message: "Post created successfully", post });

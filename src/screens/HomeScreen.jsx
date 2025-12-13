@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SearchBar from "../components/SearchBar";
 import AddPostButton from "../components/AddPostbutton";
 import AddPostForm from "./AddPostForm";
 import PostCard from "../components/Postcard";
 import "./HomeScreen.css";
-import api from "../api"; 
-import { getPosts, addPost, searchPosts } from "../api";
+import api from "../api";
+import { AuthContext } from "../context/AuthContext";
+
 export default function HomeScreen() {
+  const { user, logout } = useContext(AuthContext);
   const [openForm, setOpenForm] = useState(false);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,13 +33,24 @@ const fetchPosts = async () => {
 
 const handleAddPost = async (postData) => {
   try {
-    const response = await api.addPost(postData); // { message, post }
+    const token = user?.token;
+    if (!token) {
+      alert("You must be logged in to add a post.");
+      return;
+    }
+    const response = await api.addPost(postData, token); // { message, post }
     const newPost = response.post; // <-- get the post object
     setPosts(prevPosts => [newPost, ...prevPosts]);
+    
     setOpenForm(false);
   } catch (err) {
     console.error("Failed to add post:", err);
-    alert("Failed to add post. Please try again.");
+    if (err.message.includes("Not authorized")) {
+      logout();
+      alert("Session expired, please log in again.");
+    } else {
+      alert("Failed to add post. Please try again.");
+    }
   }
 };
 
@@ -86,11 +99,14 @@ const handleSearchResults = async (filters) => {
             No posts yet. Click the + button to add your first post!
           </p>
         ) : (
-          posts.map((post) => <PostCard key={post._id} post={post} />)
+       <div className="posts-grid">
+            {posts.map((post) => (
+              <PostCard key={post._id} post={post} />
+            ))}
+          </div>
         )}
       </div>
-
-      
+  
     </div>
   );
 }
