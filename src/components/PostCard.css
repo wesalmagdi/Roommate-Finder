@@ -162,9 +162,74 @@
 
 
 .post-card {
-  flex: 0 0 calc(50% - 10px); 
-  box-sizing: border-box;      
-  margin-bottom: 20px;         
+  flex: 0 0 calc(50% - 10px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
+/* Image Modal Styles */
+.image-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  z-index: 1000;
+}
 
+.image-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.close-button {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.close-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-button img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+.prev-button {
+  left: -50px;
+}
+
+.next-button {
+  right: -50px;
+}

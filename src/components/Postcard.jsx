@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import "./PostCard.css";
+import closeIcon from "../assets/closeIcon.svg";
+import arrowIcon from "../assets/arrowIcon.svg";
 
 export default function PostCard({ post }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const {
     title,
     description,
@@ -35,6 +41,27 @@ export default function PostCard({ post }) {
   // Assume backend returned filename
   return `http://localhost:5000/uploads/${image}`;
 };
+
+  const openModal = (index) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? safeImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === safeImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   return (
     <div className="post-card">
@@ -92,13 +119,42 @@ export default function PostCard({ post }) {
             <span className="images-label">Images:</span>
             <div className="images-preview">
               {safeImages.slice(0, 3).map((image, index) => (
-                <img key={index} src={getImageSrc(image)} alt={`Post image ${index + 1}`} />
+                <img
+                  key={index}
+                  src={getImageSrc(image)}
+                  alt={`Post image ${index + 1}`}
+                  onClick={() => openModal(index)}
+                  style={{ cursor: 'pointer' }}
+                />
               ))}
               {safeImages.length > 3 && (
                 <span className="more-images">+{safeImages.length - 3} more</span>
               )}
             </div>
           </div>
+        )}
+
+        {/* Image Modal */}
+        {isModalOpen && ReactDOM.createPortal(
+          <div className="image-modal-overlay" onClick={closeModal}>
+            <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="close-button" onClick={closeModal}>
+                <img src={closeIcon} alt="Close" />
+              </button>
+              <button className="nav-button prev-button" onClick={prevImage}>
+                <img src={arrowIcon} alt="Previous" style={{ transform: 'rotate(180deg)' }} />
+              </button>
+              <img
+                src={getImageSrc(safeImages[currentImageIndex])}
+                alt={`Post image ${currentImageIndex + 1}`}
+                className="modal-image"
+              />
+              <button className="nav-button next-button" onClick={nextImage}>
+                <img src={arrowIcon} alt="Next" />
+              </button>
+            </div>
+          </div>,
+          document.body
         )}
       </div>
     </div>
