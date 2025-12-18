@@ -1,6 +1,3 @@
-```markdown
-# Login Sequence Diagram
-
 ```mermaid
 sequenceDiagram
     actor User
