@@ -1,45 +1,76 @@
 ```mermaid
 classDiagram
+    %% User class
     class User {
-        +String _id
-        +String name
-        +String email
-        +String password
-        +String gender
-        +String university
-        +Date createdAt
-        +Date updatedAt
-        +signup()
-        +login()
+        - userId: String
+        - name: String
+        - email: String
+        - passwordHash: String
+        + login()
+        + logout()
+        + register()
     }
 
+    %% Post class
     class Post {
-        +String _id
-        +String title
-        +String description
-        +String city
-        +String address
-        +Number price
-        +Boolean furnished
-        +Boolean smokingAllowed
-        +String gender
-        +Array amenities
-        +Array images
-        +String contact_Email
-        +String contact_Phone
-        +ObjectId createdBy
-        +Date createdAt
-        +Date updatedAt
-        +createPost()
-        +editPost()
-        +deletePost()
-        +getPostById()
+        - postId: String
+        - userId: String
+        - title: String
+        - description: String
+        - location: String
+        - rent: Number
+        - genderPreference: String
+        - petsAllowed: Boolean
+        - createdAt: Date
+        + createPost()
+        + editPost()
+        + deletePost()
+        + viewPost()
     }
 
-    class JWT {
-        +generateToken(userId)
-        +verifyToken(token)
+    %% Filter class
+    class Filter {
+        + applyFilters(location:String, rentRange:String, gender:String): List~Post~
     }
 
+    %% Search class
+    class Search {
+        + searchPosts(keyword:String): List~Post~
+    }
+
+    %% AuthController
+    class AuthController {
+        + login(email:String, password:String): JWT
+        + logout(token:String)
+        + register(userData:Object)
+    }
+
+    %% PostController
+    class PostController {
+        + createPost(postData:Object)
+        + editPost(postId:String, postData:Object)
+        + deletePost(postId:String)
+        + viewPost(postId:String)
+        + filterPosts(filters:Object): List~Post~
+        + searchPosts(keyword:String): List~Post~
+    }
+
+    %% Database
+    class Database {
+        + saveUser(user:User)
+        + getUserByEmail(email:String)
+        + savePost(post:Post)
+        + getPostById(postId:String)
+        + updatePost(post:Post)
+        + deletePost(postId:String)
+        + queryPosts(filters:Object): List~Post~
+    }
+
+    %% Relationships
     User "1" --> "*" Post : creates
-    Post --> User : createdBy
+    PostController --> Post : manages
+    AuthController --> User : manages
+    PostController --> Database : reads/writes
+    AuthController --> Database : reads/writes
+    Filter --> PostController : uses
+    Search --> PostController : uses
