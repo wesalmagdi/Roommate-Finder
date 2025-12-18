@@ -1,5 +1,3 @@
-# Register Sequence Diagram
-
 ```mermaid
 sequenceDiagram
     actor User
@@ -10,8 +8,14 @@ sequenceDiagram
     User->>FE: Enter registration data
     FE->>BE: POST /register
     BE->>BE: Validate input
-    BE->>BE: Hash password
-    BE->>DB: Save new user
-    DB-->>BE: User saved
-    BE-->>FE: Registration success
-    FE-->>User: Confirmation message
+
+    alt Valid registration
+        BE->>BE: Hash password
+        BE->>DB: Save new user
+        DB-->>BE: User saved
+        BE-->>FE: Registration success
+        FE-->>User: Confirmation message
+    else Email already exists / invalid input
+        BE-->>FE: 409 Conflict / 400 Bad Request
+        FE-->>User: Show error message
+    end
