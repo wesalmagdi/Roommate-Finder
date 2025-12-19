@@ -8,7 +8,7 @@ function SearchBar({
   gender, setGender,
   wifi, setWifi,      
   ac, setAc, 
-  pets, setPets 
+  pet, setPet
 }) {
   const [btnHovered, setBtnHovered] = React.useState(false);
 
@@ -22,22 +22,24 @@ function SearchBar({
   const handleSearch = (e) => {
     e.preventDefault();
 
-   
+    
     const filters = {
       city,
       budget,
       gender,
-      wifi: wifi ? 'true' : 'false',
-      ac: ac ? 'true' : 'false',
-      pets: pets ? 'true' : 'false'
     };
+
+   
+    if (wifi) filters.wifi = 'true';
+    if (ac) filters.ac = 'true';
+    if (pet) filters.pet = 'true';
 
     if (onSearch) onSearch(filters);
   };
 
   return (
     <form className="search-container" onSubmit={handleSearch}>
-      {/* 1. City Select */}
+      {/* City Select */}
       <div className="field">
         <select value={city} onChange={(e) => setCity(e.target.value)} className="search-select" required>
           <option value="" disabled hidden>Select City</option>
@@ -47,7 +49,7 @@ function SearchBar({
         </select>
       </div>
 
-      {/* 2. Gender Select */}
+      {/* Gender Select */}
       <div className="field">
         <select value={gender} onChange={(e) => setGender(e.target.value)} className="search-select" required>
           <option value="" disabled hidden>Select Gender</option>
@@ -56,7 +58,7 @@ function SearchBar({
         </select>
       </div>
 
-      {/* 3. Budget Input */}
+      {/* Budget Input */}
       <div className="field">
         <input
           type="number"
@@ -69,7 +71,7 @@ function SearchBar({
         />
       </div>
 
-      
+      {/* Amenities Checkboxes */}
       <div className="amenities-container">
         <label className="checkbox-label-wifi">
           <input type="checkbox" checked={wifi} onChange={(e) => setWifi(e.target.checked)} />
@@ -80,7 +82,7 @@ function SearchBar({
           AC
         </label>
         <label className="checkbox-label-pets">
-          <input type="checkbox" checked={pets} onChange={(e) => setPets(e.target.checked)} />
+          <input type="checkbox" checked={pet} onChange={(e) => setPet(e.target.checked)} />
           Pets
         </label>
       </div>

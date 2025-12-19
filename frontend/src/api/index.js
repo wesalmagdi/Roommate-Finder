@@ -58,7 +58,7 @@ export async function addPost(postData, token) {
     }
   });
 
-  // append images (File objects)
+  
   if (Array.isArray(postData.images)) {
     postData.images.forEach((file) => {
       form.append("images", file);
@@ -75,16 +75,19 @@ export async function addPost(postData, token) {
 
   const data = await response.json();
   if (!response.ok) throw new Error(data.message || "Create post failed");
-  return data; // backend returns { message, post }
+  return data; 
 }
 
 
-export async function searchPosts(filters = {}) { // <-- default empty object
+export async function searchPosts(filters = {}) { 
   // Only include keys that have values
   const queryObj = {};
   if (filters.city) queryObj.city = filters.city;
   if (filters.gender) queryObj.gender = filters.gender;
   if (filters.budget) queryObj.budget = filters.budget;
+  if (filters.wifi !== undefined) queryObj.wifi = filters.wifi;
+  if (filters.ac !== undefined) queryObj.ac = filters.ac;
+  if (filters.pets !== undefined) queryObj.pet = filters.pets;
 
   const query = new URLSearchParams(queryObj).toString();
   const response = await fetch(`${BASE_URL}/posts/search?${query}`);
@@ -107,9 +110,9 @@ export async function getMyPosts(token) {
 export async function updatePost(postId, postData, token) {
   const form = new FormData();
 
-  // append text fields, booleans and arrays/objects properly
+ 
   Object.keys(postData).forEach((key) => {
-    if (key === "images") return; // handled separately below
+    if (key === "images") return; 
 
     const value = postData[key];
 

@@ -9,6 +9,7 @@ const amenitiesSchema = new mongoose.Schema(
     parking: { type: Boolean, default: false },
     elevator: { type: Boolean, default: false },
     balcony: { type: Boolean, default: false },
+    petFriendly: { type: Boolean, default: false }
   },
   { _id: false }
 );
