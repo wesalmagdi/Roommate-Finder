@@ -33,6 +33,11 @@ function Navbar() {
         {/* Center Section - About Us */}
         <div className="nav-center">
           <ul className="navbar-nav">
+            <li className='nav-item'>
+              <Link className='nav-link' to="/" state={{ reset: true }}>
+                Home
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">
                 About Us

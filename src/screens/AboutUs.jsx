@@ -7,8 +7,8 @@ import { Users, Home, Shield, Search } from 'lucide-react';
 export default function AboutUs() {
   return (
     <div className="about-container">
-      {/* Hero Section */}
-      <section className="hero-section">
+     
+      <section className="hero-section hero-strip">
         <div className="hero-content">
           <h1 className="hero-title">Find Your Perfect Roommate</h1>
           <p className="hero-subtitle">
@@ -64,15 +64,7 @@ export default function AboutUs() {
               </p>
             </div>
             
-            <div className="step-card">
-              <div className="step-icon">
-                <Shield size={32} />
-              </div>
-              <h3 className="step-title">Safe & Secure</h3>
-              <p className="step-description">
-                All profiles are verified to ensure a safe and trustworthy community.
-              </p>
-            </div>
+            
           </div>
         </div>
       </section>
@@ -107,7 +99,7 @@ export default function AboutUs() {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section cta-strip">
         <div className="content-wrapper">
           <h2 className="cta-title">Ready to Find Your Roommate?</h2>
           <p className="cta-text">
