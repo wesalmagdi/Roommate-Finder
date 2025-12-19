@@ -3,8 +3,25 @@
 import './AboutUs.css';
 import { Link } from 'react-router-dom';
 import { Users, Home, Shield, Search } from 'lucide-react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export default function AboutUs() {
+  const { user } = useContext(AuthContext);
+  const [showModal, setShowModal] = React.useState(false);
+
+  const handleGetStarted = () => {
+    if (user) {
+      setShowModal(true);
+    } else {
+      window.location.href = "/register";
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="about-container">
      
@@ -105,11 +122,21 @@ export default function AboutUs() {
           <p className="cta-text">
             Join thousands of people who have found their perfect living arrangement.
           </p>
-          <Link to="/register" className="cta-button">Get Started Today</Link>
+          <button onClick={handleGetStarted} className="cta-button">Get Started Today</button>
           
           
         </div>
       </section>
+
+      
+      {showModal && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>You are already logged in.</h3>
+            <button className="modal-close-btn" onClick={closeModal}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

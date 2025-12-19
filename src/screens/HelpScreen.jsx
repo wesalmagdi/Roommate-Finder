@@ -2,12 +2,33 @@ import React, { useState } from 'react';
 import './HelpScreen.css';
 
 const HelpScreen = () => {
-  const teamMembers = [
-    { name: "Rama Mousa", role: "Frontend Developer", bio: "Contact:R.mohamed2373@nu.edu.eg" },
-    { name: "wesal magdi", role: "Backend Developer", bio: "Contact:w.magdy2386@nu.edu.eg" },
-    { name: "Rana Osman", role: "Testing", bio: "Contact:R.mohsen2397@nu.edu.eg" },
-    { name: "Raneem Khaled", role: "Database Engineer", bio: "Contact:R.Khaled2324@nu.edu.eg" },
-  ];
+const teamMembers = [
+  { 
+    name: "Rama Mousa", 
+    role: "Frontend Developer", 
+    email: "R.mohamed2373@nu.edu.eg",
+    linkedin: "https://www.linkedin.com/in/rama-mohamed-a51800305" 
+  },
+  { 
+    name: "Wesal Magdi", 
+    role: "Backend Developer", 
+    email: "w.magdy2386@nu.edu.eg",
+    linkedin: "https://www.linkedin.com/in/wesalmagdy"
+  },
+  { 
+    name: "Rana Osman", 
+    role: "Testing", 
+    email: "R.mohsen2397@nu.edu.eg",
+    linkedin: "https://www.linkedin.com/in/rana-osman-0241a4351"
+  },
+  { 
+    name: "Raneem Khaled", 
+    role: "Database Engineer", 
+    email: "R.Khaled2324@nu.edu.eg",
+    linkedin: "https://www.linkedin.com/in/raneem-khaled-67089631b"
+  }
+];
+
 
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
@@ -39,7 +60,16 @@ const HelpScreen = () => {
                 <div className="team-card__avatar">{member.name.charAt(0)}</div>
                 <span className="team-card__role">{member.role}</span>
                 <h3>{member.name}</h3>
-                <p>{member.bio}</p>
+                
+                <p> {member.email}</p>
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="bio-link"
+                >
+                  LinkedIn Profile
+                </a>
               </div>
             ))}
           </div>
