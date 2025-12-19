@@ -8,6 +8,7 @@ import AboutUs from './screens/AboutUs';
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "./context/AuthContext";
 import ProfileScreen from './screens/ProfileScreen';
+import HelpScreen from './screens/HelpScreen';
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/Help" element={<HelpScreen/>}/>
         </Routes>
       </BrowserRouter>
       </AuthProvider>
