@@ -27,6 +27,10 @@
   justify-content: flex-start;  /* align all cards to the left */
 }
 
+.posts-grid.filtered .post-card {
+  flex: 0 0 100%; /* One card per row when filtered */
+}
+
 
 
 

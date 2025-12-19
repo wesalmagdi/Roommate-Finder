@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import AddPostButton from "../components/AddPostbutton";
 import AddPostForm from "./AddPostForm";
@@ -9,10 +10,15 @@ import { AuthContext } from "../context/AuthContext";
 
 export default function HomeScreen() {
   const { user, logout } = useContext(AuthContext);
+  const location = useLocation();
   const [openForm, setOpenForm] = useState(false);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [city, setCity] = useState("");
+  const [budget, setBudget] = useState("");
+  const [gender, setGender] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false);
 
 const fetchPosts = async () => {
   try {
@@ -20,6 +26,7 @@ const fetchPosts = async () => {
     const response = await api.getPosts();
     setPosts(Array.isArray(response) ? response : []); // <-- always array
     setLoading(false);
+    setIsFiltered(false);
   } catch (err) {
     console.error("Failed to load posts:", err);
     setError("Failed to load posts from server.");
@@ -30,6 +37,15 @@ const fetchPosts = async () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    if (location.state?.reset && isFiltered) {
+      setCity("");
+      setBudget("");
+      setGender("");
+      fetchPosts();
+    }
+  }, [location.state]);
 
 const handleAddPost = async (postData) => {
   try {
@@ -62,6 +78,7 @@ const handleSearchResults = async (filters) => {
     setError(null);
     const results = await api.searchPosts(filters);
     setPosts(Array.isArray(results) ? [...results] : []);
+    setIsFiltered(true);
   } catch (err) {
     console.error("Search failed:", err);
     setError("Search failed. Try again.");
@@ -74,7 +91,7 @@ const handleSearchResults = async (filters) => {
   return (
     <div className="home-screen">
       <div className="search-header">
-        <SearchBar onSearch={handleSearchResults} /> {/* pass callback */}
+        <SearchBar onSearch={handleSearchResults} city={city} setCity={setCity} budget={budget} setBudget={setBudget} gender={gender} setGender={setGender} /> {/* pass callback and states */}
         <AddPostButton onOpen={() => setOpenForm(true)} />
       </div>
 
@@ -99,7 +116,7 @@ const handleSearchResults = async (filters) => {
             No posts yet. Click the + button to add your first post!
           </p>
         ) : (
-       <div className="posts-grid">
+       <div className={`posts-grid ${isFiltered ? 'filtered' : ''}`}>
             {posts.map((post) => (
               <PostCard key={post._id} post={post} />
             ))}

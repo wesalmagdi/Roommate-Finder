@@ -2,10 +2,7 @@ import React from "react";
 import "./SearchBar.css";
 import api from "../api"; // <-- use API helper
 
-function SearchBar({ onSearch }) { // receive callback from HomeScreen
-  const [city, setCity] = React.useState("");
-  const [budget, setBudget] = React.useState("");
-  const [gender, setGender] = React.useState("");
+function SearchBar({ onSearch, city, setCity, budget, setBudget, gender, setGender }) { // receive callback and states from HomeScreen
   const [btnHovered, setBtnHovered] = React.useState(false);
 
   const governorates = [
@@ -69,7 +66,7 @@ const handleSearch = async (e) => {
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
           className="search-input"
-          placeholder="Min Budget (EGP)"
+          placeholder="Max Budget (EGP)"
           min="0"
         />
       </div>

@@ -34,7 +34,7 @@ function Navbar() {
         <div className="nav-center">
           <ul className="navbar-nav">
             <li className='nav-item'>
-              <Link className='nav-link' to="/">
+              <Link className='nav-link' to="/" state={{ reset: true }}>
                 Home
               </Link>
             </li>
