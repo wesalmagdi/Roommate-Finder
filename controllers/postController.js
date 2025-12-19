@@ -168,16 +168,28 @@ export const deletePost = async (req, res) => {
 // ---------------------- SEARCH POSTS ----------------------
 export const searchPosts = async (req, res) => {
   try {
-    const { city, budget, gender } = req.query;
+    const { city, budget, gender, wifi, ac, pets } = req.query;
 
-    let filter = {};
-    if (city) filter.city = new RegExp(`^${city}$`, "i");
-    if (gender) filter.gender = new RegExp(`^${gender}$`, "i");
-    if (budget) filter.price = { $lte: Number(budget) };
+    if (!city || !budget || !gender) {
+      return res.status(400).json({ 
+        message: 'City, budget, and gender are required' 
+      });
+    }
+
+    const filter = {
+      city: city,
+      price: { $lte: Number(budget) },
+      gender: gender
+    };
+
+    if (wifi !== undefined) filter['amenities.wifi'] = wifi === 'true';
+    if (ac !== undefined) filter['amenities.ac'] = ac === 'true';
+    if (pets !== undefined) filter['amenities.pets'] = pets === 'true';
 
     const posts = await Post.find(filter);
 
-    res.json(posts);
+    res.status(200).json({ results: posts });
+
   } catch (error) {
     console.error('Search posts error:', error);
     res.status(500).json({ message: 'Server error' });

@@ -51,28 +51,38 @@ export const signup = async (req, res) => {
 // ---------------------- LOGIN ----------------------
 export const login = async (req, res) => {
   try {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+      const token = authHeader.split(' ')[1]; 
+      if (token) {
+        try {
+          jwt.verify(token, process.env.JWT_SECRET);
+          return res.status(400).json({ message: 'You are already logged in' });
+        } catch (err) {
+        }
+      }
+    }
+
     const { email, password } = req.body;
 
-    // Find user
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({
+    res.status(200).json({
       message: 'Login successful',
       token,
       user: {
@@ -81,6 +91,7 @@ export const login = async (req, res) => {
         email: user.email
       }
     });
+
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
