@@ -57,10 +57,10 @@ function Navbar() {
             {!user ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
+                  <Link className="nav-link-login" to="/login">Login</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
+                  <Link className="nav-link-register" to="/register">Register</Link>
                 </li>
               </>
             ) : (

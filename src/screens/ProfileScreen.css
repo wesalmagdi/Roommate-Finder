@@ -97,22 +97,22 @@ body, html {
 }
 
 .post-actions button:first-child {
-  background-color: #2563eb;
+  background-color: #3b4d80;
   color: white;
 }
 
 .post-actions button:first-child:hover {
-  background-color: #1d4ed8;
+  background-color: #3b4d80;
   transform: scale(1.05);
 }
 
 .post-actions button:last-child {
-  background-color: #dc2626;
+  background-color: #c52222;
   color: white;
 }
 
 .post-actions button:last-child:hover {
-  background-color: #dc2626;
+  background-color: #742121;
   transform: scale(1.05);
 }
 
