@@ -1,14 +1,15 @@
-/* Center the box on the page */
+
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40vh; /* vertical center */
+  min-height: 40vh; 
   min-width: 40vw;
-  background-color: #f5f5f5; /* optional page bg */
+  background-color: #ffffff; 
+  padding-top:  50px; 
 }
 
-/* Box with shadow */
+
 .register-box {
   background-color: white;
   padding: 30px 40px;
@@ -17,9 +18,10 @@
   width: 100%;
   max-width: 700px;
   text-align: center;
+  
 }
 
-/* Inputs spacing */
+
 .register-box input {
   margin-bottom: 15px;
   height: 40px;
@@ -27,9 +29,9 @@
   font-size: 16px;
 }
 
-/* Button style */
+
 .register-btn {
-  background-color: #242c4e; /* your project color */
+  background-color: #242c4e; 
   color: white;
   border: none;
   padding: 10px 20px;
@@ -40,11 +42,11 @@
 }
 
 .register-btn:hover {
-  background-color: #242c4e; /* slightly darker on hover */
+  background-color: #242c4e; 
   transform: scale(1.05);
 }
 
-/* Text below the button */
+
 .register-text {
   margin-top: 18px;
   font-size: 16px;
@@ -52,14 +54,14 @@
 }
 
 .register-text a {
-  color: #007bff; /* project color for link */
+  color: #007bff; 
   text-decoration: none;
   font-weight: bold;
   transition: color 0.2s ease;
 }
 
 .register-text a:hover {
-  color: #0056b3; /* slightly darker on hover */
+  color: #0056b3; 
 }
 
 .gender-section {
@@ -73,7 +75,6 @@
   display: block;
 }
 
-/* Alert / warning banner inside the box */
 .alert {
   margin: 12px 0;
   padding: 8px 12px;
@@ -96,7 +97,7 @@
   margin-right: 6px;
 }
 
-/* Keep an .error utility (unused now) in case you want per-field red text */
+
 .error {
   color: #b00020;
   font-size: 13px;
