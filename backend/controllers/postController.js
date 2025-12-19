@@ -168,13 +168,7 @@ export const deletePost = async (req, res) => {
 // ---------------------- SEARCH POSTS ----------------------
 export const searchPosts = async (req, res) => {
   try {
-    const { city, budget, gender, wifi, ac, pets } = req.query;
-
-    if (!city || !budget || !gender) {
-      return res.status(400).json({ 
-        message: 'City, budget, and gender are required' 
-      });
-    }
+    const { city, budget, gender, wifi, ac, pet } = req.query;
 
     const filter = {
       city: city,
@@ -182,12 +176,23 @@ export const searchPosts = async (req, res) => {
       gender: gender
     };
 
-    if (wifi !== undefined) filter['amenities.wifi'] = wifi === 'true';
-    if (ac !== undefined) filter['amenities.ac'] = ac === 'true';
-    if (pets !== undefined) filter['amenities.pets'] = pets === 'true';
+ 
+    if (wifi === 'true') {
+      filter['amenities.wifi'] = true;
+    }
+
+    if (ac === 'true') {
+      filter['amenities.airConditioning'] = true; 
+    }
+
+    if (pet === 'true') {
+      filter['amenities.petFriendly'] = true;
+    }
+
+  
+    console.log("SEARCHING DATABASE WITH FILTER:", JSON.stringify(filter, null, 2));
 
     const posts = await Post.find(filter);
-
     res.status(200).json({ results: posts });
 
   } catch (error) {

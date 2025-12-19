@@ -5,12 +5,12 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start-backend": "node server.js",
-    "dev-backend": "nodemon server.js",
+    "start-backend": "node backend/server.js",
+  "dev-backend": "nodemon backend/server.js",
     "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand",
-    "dev-frontend": "vite",
-    "build-frontend": "vite build",
-    "preview-frontend": "vite preview",
+    "dev-frontend": "cd frontend && vite",
+  "build-frontend": "cd frontend && vite build",
+  "preview-frontend": "cd frontend && vite preview",
     "lint-frontend": "eslint ."
   },
   "dependencies": {

@@ -1,8 +1,15 @@
 import React from "react";
 import "./SearchBar.css";
-import api from "../api"; // <-- use API helper
 
-function SearchBar({ onSearch, city, setCity, budget, setBudget, gender, setGender }) { // receive callback and states from HomeScreen
+function SearchBar({ 
+  onSearch, 
+  city, setCity, 
+  budget, setBudget, 
+  gender, setGender,
+  wifi, setWifi,      
+  ac, setAc, 
+  pet, setPet
+}) {
   const [btnHovered, setBtnHovered] = React.useState(false);
 
   const governorates = [
@@ -12,35 +19,29 @@ function SearchBar({ onSearch, city, setCity, budget, setBudget, gender, setGend
     "Red Sea","New Valley","Matrouh","North Sinai","South Sinai"
   ];
 
-const handleSearch = async (e) => {
-  e.preventDefault();
+  const handleSearch = (e) => {
+    e.preventDefault();
 
-  const filters = {};
-  if (city) filters.city = city;
-  if (gender) filters.gender = gender;
-  if (budget) filters.budget = budget;
+    
+    const filters = {
+      city,
+      budget,
+      gender,
+    };
 
-  if (onSearch) onSearch(filters);
-  // try {
-  //   const results = await api.searchPosts(filters);
-  //   console.log("Search results:", results);
-  //   if (onSearch) onSearch(results);
-  // } catch (err) {
-  //   console.error("Search failed:", err);
-  //   alert("Search failed. Try again.");
-  // }
-};
+   
+    if (wifi) filters.wifi = 'true';
+    if (ac) filters.ac = 'true';
+    if (pet) filters.pet = 'true';
 
-
+    if (onSearch) onSearch(filters);
+  };
 
   return (
     <form className="search-container" onSubmit={handleSearch}>
+      {/* City Select */}
       <div className="field">
-        <select
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className="search-select"
-        >
+        <select value={city} onChange={(e) => setCity(e.target.value)} className="search-select" required>
           <option value="" disabled hidden>Select City</option>
           {governorates.map((g) => (
             <option key={g} value={g}>{g}</option>
@@ -48,27 +49,42 @@ const handleSearch = async (e) => {
         </select>
       </div>
 
+      {/* Gender Select */}
       <div className="field">
-        <select
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          className="search-select"
-        >
+        <select value={gender} onChange={(e) => setGender(e.target.value)} className="search-select" required>
           <option value="" disabled hidden>Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
 
+      {/* Budget Input */}
       <div className="field">
         <input
           type="number"
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
           className="search-input"
-          placeholder="Max Budget (EGP)"
+          placeholder="Max Budget"
           min="0"
+          required
         />
+      </div>
+
+      {/* Amenities Checkboxes */}
+      <div className="amenities-container">
+        <label className="checkbox-label-wifi">
+          <input type="checkbox" checked={wifi} onChange={(e) => setWifi(e.target.checked)} />
+          WiFi
+        </label>
+        <label className="checkbox-label-AC">
+          <input type="checkbox" checked={ac} onChange={(e) => setAc(e.target.checked)} />
+          AC
+        </label>
+        <label className="checkbox-label-pets">
+          <input type="checkbox" checked={pet} onChange={(e) => setPet(e.target.checked)} />
+          Pets
+        </label>
       </div>
 
       <button
