@@ -1,10 +1,12 @@
 import multer from "multer";
 import path from "path";
 
-// Save uploaded files to /uploads directory
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    // This looks for the "uploads" folder inside the "backend" directory
+    // no matter where you start the terminal from.
+    const uploadPath = path.join(process.cwd(), "backend", "uploads");
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);

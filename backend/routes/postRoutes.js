@@ -23,11 +23,8 @@ router.get('/me', protect, getMyPosts);
 // Public routes
 router.get('/', getAllPosts);
 
-// Dynamic route last
-router.get('/:id', getPostById);
-
-// Create / update / delete
 router.post("/", protect, upload.array("images"), createPost); // Added protect middleware to associate posts with authenticated users
+router.get('/:id', getPostById);
 router.put('/:id', protect, updatePost);   
 router.delete('/:id', protect, deletePost); 
 
