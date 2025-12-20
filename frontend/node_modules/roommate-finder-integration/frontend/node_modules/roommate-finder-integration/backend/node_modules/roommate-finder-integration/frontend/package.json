@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "roommate-finder-integration": "file:.."
+  }
+}

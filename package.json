@@ -5,7 +5,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start-backend": "node backend/server.js",
+    "start": "node backend/server.js",
   "dev-backend": "nodemon backend/server.js",
     "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand",
     "dev-frontend": "cd frontend && vite",

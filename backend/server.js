@@ -11,30 +11,36 @@ import { logger } from './middlewares/logger.js';
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Fix __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve uploads folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.json());
+
 app.use(cors({ origin: 'http://localhost:5173' }));
+
 app.use(logger);
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 
-app.get('/', (req, res) => {
-  res.send('Roommate Finder Backend is running!');
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'API Root works!' });
-});
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('Roommate Finder Backend is running!');
+  });
 
-// Only start server if NOT in test environment
+  app.get('/api', (req, res) => {
+    res.json({ message: 'API Root works!' });
+  });
+}
+
 if (process.env.NODE_ENV !== 'test') {
   startServer();
 }

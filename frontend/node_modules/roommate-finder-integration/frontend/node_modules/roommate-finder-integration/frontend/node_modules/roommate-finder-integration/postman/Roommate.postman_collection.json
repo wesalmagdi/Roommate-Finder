@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "87b8401b-6e47-4531-b239-c957cbe58fd9",
+    "name": "Roommate API",
+    "description": "API tests for Roommate Finder project using environment variables.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ranaa\",\n  \"email\": \"ranas@gmail.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/signup",
+          "host": ["{{base_url}}"],
+          "path": ["api","auth","signup"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ranas@gmail.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/login",
+          "host": ["{{base_url}}"],
+          "path": ["api","auth","login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.environment.set(\"jwt_token\", pm.response.json().token);"
+            ]
+          }
+        }
+      ],
+      "response": []
+    },
+    {
+      "name": "Get My Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/auth/me",
+          "host": ["{{base_url}}"],
+          "path": ["api","auth","me"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Post",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Room for Rent\",\n  \"description\": \"Spacious room available near downtown\",\n  \"location\": \"Downtown\",\n  \"city\": \"Cairo\",\n  \"address\": \"123 Street Name\",\n  \"price\": 2500,\n  \"furnished\": true,\n  \"smokingAllowed\": false,\n  \"gender\": \"any\",\n  \"amenities\": { \"wifi\": true, \"airConditioning\": true, \"fridge\": true },\n  \"images\": [\"image1.jpg\", \"image2.jpg\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/posts",
+          "host": ["{{base_url}}"],
+          "path": ["api","posts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Posts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/posts",
+          "host": ["{{base_url}}"],
+          "path": ["api","posts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get My Posts",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/posts/me",
+          "host": ["{{base_url}}"],
+          "path": ["api","posts","me"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Posts",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/posts/search?location=Downtown&budget=2700&gender=any",
+          "host": ["{{base_url}}"],
+          "path": ["api","posts","search"],
+          "query": [
+            { "key": "location", "value": "Downtown" },
+            { "key": "budget", "value": "2700" },
+            { "key": "gender", "value": "any" }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
