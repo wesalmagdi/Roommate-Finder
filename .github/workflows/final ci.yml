@@ -1,0 +1,50 @@
+name: Roommate Finder CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install root dependencies
+        run: npm install
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Create backend env file
+        run: |
+          echo "PORT=5000" >> backend/.env
+          echo "MONGO_URI=mongodb+srv://ranamohsen460_db_user:FCLNuYayxvy2IMOY@cluster0.jjlwtv4.mongodb.net/roommateFinderDB?authSource=admin&retryWrites=true&w=majority" >> backend/.env
+          echo "JWT_SECRET=supersecretkey123456" >> backend/.env
+
+      - name: Run backend tests
+        run: |
+          cd back-tests
+          npm test
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npx playwright test tests --headed
