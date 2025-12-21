@@ -21,17 +21,7 @@ jobs:
           cache: "npm"
 
       - name: Install root dependencies
-        run: npm install
-
-      - name: Install backend dependencies
-        run: |
-          cd backend
-          npm install
-
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          npm install
+        run: npm ci
 
       - name: Create backend env file
         run: |
@@ -42,9 +32,8 @@ jobs:
       - name: Run backend tests
         run: |
           cd backend
-          npm run test-backend
-
+          NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --runInBand backend/backtest
       - name: Run frontend tests
         run: |
           cd frontend
-          npx playwright test tests --headed
+          npx playwright test
