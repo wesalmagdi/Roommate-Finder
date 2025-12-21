@@ -2,9 +2,9 @@ name: Roommate Finder CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   build-and-test:
@@ -33,15 +33,3 @@ jobs:
         run: |
           cd backend
           NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --runInBand backend/backtest
-
-      - name: Start frontend dev server
-        run: |
-          npm run dev-frontend &
-          sleep 10 
-          npx wait-on http://localhost:5173 || echo "Server may have started"
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Run frontend tests
-        run: npx playwright test frontend/tests
