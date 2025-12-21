@@ -39,6 +39,13 @@ jobs:
           cd frontend
           npx playwright install --with-deps chromium
 
+      - name: Start frontend dev server
+        run: |
+          cd frontend
+          npm run dev &
+          sleep 10  # Wait for server to start
+          npx wait-on http://localhost:5173 || echo "Server may have started"
+
       - name: Run frontend tests
         run: |
           cd frontend
