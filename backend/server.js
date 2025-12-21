@@ -19,8 +19,13 @@ const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:5173' }));
-app.use(logger);
+app.use(cors({
+  origin: [
+    'https://your-frontend-project.up.railway.app', // Your live URL
+    'http://localhost:5173'                       // Local development
+  ],
+  credentials: true
+}));app.use(logger);
 
 // Routes
 app.use('/api/auth', authRoutes);
