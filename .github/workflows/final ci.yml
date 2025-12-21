@@ -33,6 +33,12 @@ jobs:
         run: |
           cd backend
           NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --runInBand backend/backtest
+
+      - name: Install Playwright browsers
+        run: |
+          cd frontend
+          npx playwright install --with-deps chromium
+
       - name: Run frontend tests
         run: |
           cd frontend
