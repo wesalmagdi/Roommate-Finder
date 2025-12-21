@@ -1,14 +1,12 @@
 import request from 'supertest';
 import app from '../server.js';
 import { connectTestDB, closeTestDB, clearTestDB } from './setup.js';
-import User from '../models/User.js';
-
 beforeAll(async () => await connectTestDB());
 afterEach(async () => await clearTestDB());
 afterAll(async () => await closeTestDB());
 
 describe('Auth Routes', () => {
-  const userData = { name: 'Test User', email: 'test@example.com', password: 'password123' };
+  const userData = { name: 'Test User', email: 'test@example.com', password: 'password123', gender: 'male', university: 'Test Uni' };
 
   it('should signup a new user', async () => {
     const res = await request(app).post('/api/auth/signup').send(userData);
@@ -20,7 +18,7 @@ describe('Auth Routes', () => {
   it('should not signup a duplicate user', async () => {
     await request(app).post('/api/auth/signup').send(userData);
     const res = await request(app).post('/api/auth/signup').send(userData);
-    expect(res.statusCode).toBe(400);
+    expect(res.statusCode).toBe(400); // Backend prevents duplicate emails
   });
 
   it('should login an existing user', async () => {
@@ -33,7 +31,7 @@ describe('Auth Routes', () => {
   it('should fail login with wrong password', async () => {
     await request(app).post('/api/auth/signup').send(userData);
     const res = await request(app).post('/api/auth/login').send({ email: userData.email, password: 'wrongpass' });
-    expect(res.statusCode).toBe(400);
+    expect(res.statusCode).toBe(400); // Invalid password is rejected
   });
 
   it('should access protected route with valid token', async () => {
@@ -46,6 +44,6 @@ describe('Auth Routes', () => {
 
   it('should fail protected route without token', async () => {
     const res = await request(app).get('/api/auth/me');
-    expect(res.statusCode).toBe(401);
+    expect(res.statusCode).toBe(401); // Unauthorized access
   });
 });

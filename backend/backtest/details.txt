@@ -1,0 +1,21 @@
+They test multiple pieces together—your routes, controllers, and database (even if in-memory) to ensure they work as a unit.
+Focused on API endpoints and data handling.
+
+Auth Routes:
+Signup a new user 
+Prevent duplicate signup 
+Login an existing user 
+Fail login with wrong password 
+Access protected route with valid token 
+Fail protected route without token 
+
+
+Post Routes:
+Create a post 
+Update own post 
+Delete own post 
+Search posts with filters 
+
+Type of testing
+Unit Testing (individual routes/controllers, e.g., createPost, updatePost)
+Integration Testing (routes + database + authentication + middleware working together)

@@ -6,11 +6,11 @@
   "main": "server.js",
   "scripts": {
     "start-backend": "node backend/server.js",
-  "dev-backend": "nodemon backend/server.js",
-    "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand",
+    "dev-backend": "nodemon backend/server.js",
+    "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand backend/backtest",
     "dev-frontend": "cd frontend && vite",
-  "build-frontend": "cd frontend && vite build",
-  "preview-frontend": "cd frontend && vite preview",
+    "build-frontend": "cd frontend && vite build",
+    "preview-frontend": "cd frontend && vite preview",
     "lint-frontend": "eslint ."
   },
   "dependencies": {
@@ -18,6 +18,7 @@
     "@tailwindcss/vite": "^4.1.16",
     "axios": "^1.13.1",
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
     "cookie": "^1.1.1",
     "cors": "^2.8.5",
@@ -54,7 +55,7 @@
     "testEnvironment": "node",
     "transform": {},
     "setupFilesAfterEnv": [
-      "<rootDir>/tests/setup.js"
+      "<rootDir>/backend/backtest/setup.js"
     ]
   }
 }

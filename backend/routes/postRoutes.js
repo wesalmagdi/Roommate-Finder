@@ -25,7 +25,7 @@ router.get('/', getAllPosts);
 
 router.post("/", protect, upload.array("images"), createPost); // Added protect middleware to associate posts with authenticated users
 router.get('/:id', getPostById);
-router.put('/:id', protect, updatePost);   
+router.put('/:id', protect, upload.array("images"), updatePost);   
 router.delete('/:id', protect, deletePost); 
 
 export default router;

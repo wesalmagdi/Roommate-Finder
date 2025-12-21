@@ -59,16 +59,20 @@ export default function ProfileScreen() {
   };
 
   const handleUpdate = async (updatedData) => {
-    try {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = user?.token;
-      const data = await updatePost(editingPost._id, updatedData, token);
-      setPosts(posts.map(post => post._id === editingPost._id ? data.post : post));
-      setEditingPost(null);
-    } catch (error) {
-      console.error("Error updating post:", error);
-    }
-  };
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+
+    const data = await updatePost(editingPost._id, updatedData, token);
+
+    setPosts(posts.map(post => post._id === editingPost._id ? data.post : post));
+    setEditingPost(null); // Close modal only after success
+  } catch (error) {
+    console.error("Error updating post:", error);
+    alert("Update failed. Check console for details.");
+  }
+};
+
 
   const handleCloseEdit = () => {
     setEditingPost(null);
