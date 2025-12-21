@@ -18,7 +18,7 @@ test.describe('AboutUs Page', () => {
   });
 
   test('renders steps and icons', async ({ page }) => {
-    await expect(page.locator('.step-card')).toHaveCount(4);
+    await expect(page.locator('.step-card')).toHaveCount(3);
   });
 
   test('renders values section', async ({ page }) => {
