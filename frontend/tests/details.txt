@@ -1,0 +1,57 @@
+Frontend tests (Playwright) → End-to-End (E2E) Testing
+Reason: They simulate a real user interacting with your app: clicking buttons, filling forms, navigating pages.
+Focused on user flows and UI behavior.
+
+App routing – App renders Navbar and routes:
+The application was tested to verify that the main App component correctly renders the Navbar and the initial routes. Upon opening the application at the root URL (/), the test confirmed that the Navbar is visible and that the default route content is rendered successfully. The expected result was that both the Navbar and the default route would be displayed. The test passed, as indicated in the terminal output.
+
+Navbar – Navbar renders correctly:
+The Navbar was verified for proper rendering and visibility. When the application was opened, the test confirmed that the Navbar appeared as expected, showing that all essential elements of the navigation bar were loaded. The expected behavior was for the Navbar to be fully visible, which was achieved successfully.
+
+Register Screen – Register form elements are visible:
+The registration screen was tested to ensure that all form fields and buttons were displayed correctly. By navigating to the /register route, the test checked the visibility of input fields (Name, Email, Password), the Gender selection dropdown, and the Register button. All elements were confirmed visible, meeting the expected outcome.
+
+Register Screen – Can type and select gender:
+Further testing of the registration form verified that user input works correctly. Users were able to type into all input fields and select a gender from the dropdown. The expected result was that inputs accept text and selection works, which was successfully confirmed.
+
+HomeScreen – renders SearchBar:
+The HomeScreen was tested for the visibility of the SearchBar component. By navigating to the home route (/), the test confirmed that the SearchBar element (identified by .search-header) was visible to users. The expected result, that the search component would be present on the screen, was met.
+
+HomeScreen – renders post cards:
+The HomeScreen was verified to ensure that post cards are displayed correctly. The test checked for the presence of .post-card elements or, in the case of no posts, a message indicating "No posts yet." The expected behavior was that at least one post card or the placeholder message would be visible, which was confirmed.
+
+HomeScreen – guest user sees Add Post button but gets error when clicking:
+This test confirmed that guest users can see the Add Post button but cannot create a post. Clicking the button triggered an alert with the message "You must be logged in to add a post." The expected result was the display of this alert, which occurred successfully.
+
+HomeScreen – registered user can open Add Post form:
+Registered users were tested for their ability to access the Add Post form. After logging in, the test verified that the HomeScreen was loaded and that the Add Post button (.add-post-btn) was visible. Clicking the button successfully opened the Add Post form overlay. The expected behavior was that logged-in users could open the form, which was confirmed.
+
+HomeScreen – search filters return posts:
+The search functionality was tested to ensure it returned posts according to filters. Selecting a city and gender, entering a maximum budget, and clicking Search triggered a display of filtered post cards or a "No results found" message. The expected result, displaying either relevant posts or a message, was observed successfully.
+
+AboutUs Page – renders hero section, mission section, steps and icons, values section, CTA button navigates to register:
+The AboutUs page underwent multiple UI tests. The hero section, mission section, steps with icons, and values section were all verified to be visible. Additionally, clicking the CTA button navigated correctly to the registration page. All expected outcomes, including visibility of all sections and correct navigation, were confirmed.
+
+Login Screen – login with wrong credentials shows error:
+Finally, the login screen was tested for validation of incorrect credentials. Entering an invalid email or password and attempting to log in triggered an error message, as expected. This validated that the application correctly handles login failures.
+
+
+Pages:
+Home page (search bar, post cards, add post button) 
+About Us page (hero section, mission, steps, values, CTA) 
+Login page (form fields, wrong credentials) 
+Register page (form fields, typing, validation) 
+
+Routing & Navigation:
+Navbar renders correctly 
+Navigation links work 
+Routes (/login, /register) render expected components 
+Guest/Authenticated Scenarios
+Guest clicking Add Post shows error 
+Registered user tests commented out (can be tested after seed users)
+
+Type of testing
+End-to-End (E2E) Testing
+
+Tests simulate real user behavior in the browser.
+Verifies UI rendering, navigation, user actions, and expected outcomes.

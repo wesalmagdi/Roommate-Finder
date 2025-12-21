@@ -77,13 +77,46 @@ export default function AddPostForm({ onClose, onSubmit, initialData }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
-      onClose();
-    }
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  // Map amenities to backend keys
+  const amenitiesMap = {
+    "WiFi": "wifi",
+    "Parking": "parking",
+    "Gym": "gym",
+    "Pool": "pool",
+    "Laundry": "washingMachine",
+    "Air Conditioning": "airConditioning",
+    "Heating": "heating",
+    "Kitchen": "kitchen",
+    "Balcony": "balcony",
+    "Pet Friendly": "petFriendly"
   };
+
+  const preparedAmenities = {};
+  (formData.amenities || []).forEach(a => {
+    const key = amenitiesMap[a];
+    if (key) preparedAmenities[key] = true;
+  });
+
+  // Prepare final data to send to backend
+  const preparedData = {
+    ...formData,
+    price: Number(formData.price),
+    furnished: formData.furnished ? "true" : "false",
+    smokingAllowed: formData.smokingAllowed ? "true" : "false",
+    amenities: JSON.stringify(preparedAmenities), // backend expects JSON string
+  };
+  if (formData.images && formData.images.length > 0) {
+  preparedData.images = formData.images; // only new images
+  }
+
+  // Submit data to parent handler (create or update)
+  onSubmit(preparedData);
+};
+
 
   return (
     <div className="addpost-overlay">

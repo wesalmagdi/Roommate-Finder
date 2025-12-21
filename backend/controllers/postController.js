@@ -104,32 +104,43 @@ export const updatePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    if (post.createdBy.toString() !== req.user.id) {
+    if (!post) return res.status(404).json({ message: 'Post not found' });
+    if (post.createdBy.toString() !== req.user.id)
       return res.status(403).json({ message: 'Not authorized to update this post' });
-    }
 
-    const updatableFields = [
-      'title',
-      'description',
-      'city',
-      'address',
-      'price',
-      'furnished',
-      'smokingAllowed',
-      'gender',
-      'amenities',
-      'images'
-    ];
+    // Handle fields from FormData
+    const fields = ['title','description','city','address','price','furnished','smokingAllowed','gender','amenities'];
 
-    updatableFields.forEach((field) => {
+    fields.forEach(field => {
       if (req.body[field] !== undefined) {
-        post[field] = req.body[field];
+        let value = req.body[field];
+
+        // Convert booleans from strings
+        if (['furnished', 'smokingAllowed'].includes(field)) {
+          post[field] = value === 'true';
+        } 
+        // Parse JSON objects (amenities)
+        else if (field === 'amenities') {
+          try {
+            post[field] = JSON.parse(value);
+          } catch {
+            post[field] = value;
+          }
+        } 
+        else if (field === 'price') {
+          post[field] = Number(value);
+        }
+        else {
+          post[field] = value;
+        }
       }
     });
+
+    // Handle new images if uploaded
+    if (req.files && req.files.length > 0) {
+      const filenames = req.files.map(f => f.filename);
+      post.images = filenames; // overwrite old images
+    }
 
     await post.save();
 
@@ -137,11 +148,14 @@ export const updatePost = async (req, res) => {
       message: 'Post updated successfully',
       post
     });
+
   } catch (error) {
     console.error('Update post error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
 
 // ---------------------- DELETE POST ----------------------
 export const deletePost = async (req, res) => {
