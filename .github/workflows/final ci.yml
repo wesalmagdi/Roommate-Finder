@@ -39,6 +39,9 @@ jobs:
           echo "MONGO_URI=mongodb+srv://ranamohsen460_db_user:FCLNuYayxvy2IMOY@cluster0.jjlwtv4.mongodb.net/roommateFinderDB?authSource=admin&retryWrites=true&w=majority" >> backend/.env
           echo "JWT_SECRET=supersecretkey123456" >> backend/.env
 
+      - name: Fix Permissions
+        run: chmod +x node_modules/.bin/*
+
       - name: Run backend tests
         run: npm run test-backend
 

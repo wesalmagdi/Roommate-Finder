@@ -7,7 +7,7 @@
   "scripts": {
     "start-backend": "node backend/server.js",
     "dev-backend": "nodemon backend/server.js",
-    "test-backend": "npx cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand backend/backtest",
+    "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand backend/backtest",
     "dev-frontend": "cd frontend && vite",
     "build-frontend": "cd frontend && vite build",
     "preview-frontend": "cd frontend && vite preview",
