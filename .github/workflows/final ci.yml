@@ -42,7 +42,7 @@ jobs:
       - name: Start frontend dev server
         run: |
           cd frontend
-          npm run dev &
+          npm run dev-frontend &
           sleep 10  # Wait for server to start
           npx wait-on http://localhost:5173 || echo "Server may have started"
 
