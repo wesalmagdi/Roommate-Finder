@@ -40,9 +40,7 @@ jobs:
           echo "JWT_SECRET=supersecretkey123456" >> backend/.env
 
       - name: Run backend tests
-        run: |
-          cd backend
-          npm run test-backend
+        run: npm run test-backend
 
       - name: Run frontend tests
         run: |
