@@ -15,15 +15,21 @@ const port = process.env.PORT || 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve uploads folder
+// Serve uploads folder (local + Vercel /tmp)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("/tmp/uploads"));
 
 app.use(express.json());
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+  'http://localhost:4173',
+].filter(Boolean);
+
 app.use(cors({
-  origin: [
-    'https://your-frontend-project.up.railway.app', // Your live URL
-    'http://localhost:5173'                       // Local development
-  ],
+  origin: process.env.NODE_ENV === 'production' && !process.env.VERCEL
+    ? allowedOrigins
+    : true,
   credentials: true
 }));app.use(logger);
 
@@ -39,8 +45,8 @@ app.get('/api', (req, res) => {
   res.json({ message: 'API Root works!' });
 });
 
-// Only start server if NOT in test environment
-if (process.env.NODE_ENV !== 'test') {
+// Only start server if NOT in test or Vercel serverless environment
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   startServer();
 }
 

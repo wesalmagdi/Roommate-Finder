@@ -39,7 +39,8 @@ export default function PostCard({ post }) {
     return URL.createObjectURL(image); // only for newly uploaded files
   }
   // Assume backend returned filename
-  return `http://localhost:5000/uploads/${image}`;
+  const uploadsBase = import.meta.env.VITE_UPLOADS_URL || "";
+  return `${uploadsBase}/uploads/${image}`;
 };
 
   const openModal = (index) => {

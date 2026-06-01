@@ -1,11 +1,15 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // This looks for the "uploads" folder inside the "backend" directory
-    // no matter where you start the terminal from.
-    const uploadPath = path.join(process.cwd(), "backend", "uploads");
+    const uploadPath = process.env.VERCEL
+      ? "/tmp/uploads"
+      : path.join(process.cwd(), "backend", "uploads");
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
