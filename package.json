@@ -9,7 +9,7 @@
     "dev-backend": "nodemon backend/server.js",
     "test-backend": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --runInBand backend/backtest",
     "dev-frontend": "cd frontend && vite",
-    "build-frontend": "cd frontend && vite build",
+    "build-frontend": "vite build frontend --config frontend/vite.config.js --outDir dist",
     "preview-frontend": "cd frontend && vite preview",
     "lint-frontend": "eslint ."
   },
